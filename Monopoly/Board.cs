@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monopoly;
 
+namespace Monopoly; 
 public class Board {
     
 }
