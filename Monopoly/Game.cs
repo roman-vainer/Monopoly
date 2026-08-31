@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monopoly
+namespace Monopoly;
+
+public class Game
 {
-    internal class Class2
-    {
-        felder
-    }
+    
 }
