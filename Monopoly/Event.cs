@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monopoly; 
+namespace Monopoly;
+
 public static class Event {
+
+    public void testMessage() {
+        IUserInterface ui = new UserInterface();
+    }
 }
