@@ -5,4 +5,5 @@ using System.Text;
 
 namespace Monopoly; 
 public class Board {
+    
 }

@@ -1,7 +1,14 @@
 ﻿namespace Monopoly {
     internal class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hallo Monopoly");
+            List<Player> players = CreatePlayers();
+            Game game = new Game(players);
+            game.Start();
+
+        }
+
+        private static List<Player> CreatePlayers() {
+            return new List<Player>();
         }
     }
 }
