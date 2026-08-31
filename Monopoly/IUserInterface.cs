@@ -3,5 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Monopoly; 
-internal interface IUserInterface {
+public interface IUserInterface {
+    public void DisplayMessage(string message);
 }

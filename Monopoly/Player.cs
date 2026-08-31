@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Spectre.Console;
+
+    
 
 namespace Monopoly;
 
@@ -10,12 +13,15 @@ public class Player {
     public int Punkte { get; set; }
     public bool IstAktiv { get; set; }
     public int Position { get; set; }
+    public List<PropertySpace> Estate { get; }
+    public Color PlayerColor { get; set; }
 
     public Player(string name, decimal money, int punkte, bool istAktiv, int position) {
         Name = name;
-        Money = money;
-        Punkte = punkte;
-        IstAktiv = istAktiv;
-        Position = position;
+        Money = 1000m;
+        Punkte = 0;
+        IstAktiv = true;
+        Position = 0;
+        Estate = new List<PropertySpace>();
     }
 }
