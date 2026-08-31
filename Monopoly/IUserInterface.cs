@@ -4,4 +4,5 @@ using System.Text;
 
 namespace Monopoly; 
 internal interface IUserInterface {
+    void TeatAusgabe();
 }

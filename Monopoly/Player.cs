@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+    
 
 namespace Monopoly;
 
@@ -10,6 +11,7 @@ public class Player {
     public int Punkte { get; set; }
     public bool IstAktiv { get; set; }
     public int Position { get; set; }
+    public List<PropertySpace> Estate { get; }
 
     public Player(string name) {
         Name = name;
@@ -17,5 +19,6 @@ public class Player {
         Punkte = 0;
         IstAktiv = true;
         Position = 0;
+        Estate = new List<PropertySpace>();
     }
 }
