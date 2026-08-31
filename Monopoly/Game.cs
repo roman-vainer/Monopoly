@@ -33,13 +33,14 @@ public class Game {
         while (true) {
             DrawBoard();
             PlayTurn();
-
         }
     }
 
     private void PlayTurn() {
         int position = CurrentPlayer.GoTo(Dice.Roll(), Size);
-        Board.
+        Board.Spaces[position].ExecuteAction(CurrentPlayer);
+        int currentIndex = Players.IndexOf(CurrentPlayer);
+        CurrentPlayer = Players[(currentIndex + 1) % Players.Count];
     }
 
     public void DrawBoard() {
