@@ -11,11 +11,11 @@ public class Player {
     public bool IstAktiv { get; set; }
     public int Position { get; set; }
 
-    public Player(string name) {
+    public Player(string name, decimal money, int punkte, bool istAktiv, int position) {
         Name = name;
-        Money = 1000m;
-        Punkte = 0;
-        IstAktiv = true;
-        Position = 0;
+        Money = money;
+        Punkte = punkte;
+        IstAktiv = istAktiv;
+        Position = position;
     }
 }

@@ -4,4 +4,7 @@ using System.Text;
 
 namespace Monopoly; 
 public static class Event {
+    public static void ExecuteAction(Player player)
+    {
+}
 }
