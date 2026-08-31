@@ -6,5 +6,7 @@ namespace Monopoly;
 
 public class EventSpace : Space {
     public override void ExecuteAction(Player player) {
+     
+        Event.TriggerRandomEvent(player);
     }
 }
