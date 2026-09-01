@@ -24,4 +24,9 @@ public class Player {
         Position = 0;
         Estate = new List<PropertySpace>();
     }
+
+    //public Player SetPlayer()
+    //{
+    //    return this;
+    //}
 }

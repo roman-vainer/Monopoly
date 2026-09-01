@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Monopoly; 
-public class Event {
+public static class Event {
 
     public static void TriggerRandomEvent(Player player)
     {

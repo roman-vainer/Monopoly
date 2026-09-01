@@ -1,23 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml.Serialization;
+using System.Threading.Channels;
 
 
-namespace Monopoly; 
-public class Board {
-    List<Space> spaces ;
+namespace Monopoly;
 
+public class Board
+{
+    public List<Space> Spaces { set; get; }
+    //public Player players { get; set; }
+    //public Board(Player players)
+    //{
+    //    SetList();
+    //}
     public Board()
     {
-        spaces = new List<Space>()
+        Spaces = new List<Space>()
         {
-            new StartSpace(),
             new MoneySpace(),
-            new PropertySpace(2, 1000m, 100m, null),
+            new StartSpace(),
             new EventSpace(),
-            
-        };
+       };
 
+
+        Spaces.AddRange(Spaces);
+        Spaces.AddRange(Spaces);
+
+        //Spaces.Shuffle();
+
+        //Spaces[0] = new StartSpace();
+
+        Console.WriteLine($"{Spaces.Count}");
     }
 }
