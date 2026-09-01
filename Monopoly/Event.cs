@@ -2,59 +2,88 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monopoly; 
-public static class Event {
+namespace Monopoly;
 
-    public static void TriggerRandomEvent(Player player)
+public class Event
+{
+
+    public static string TriggerRandomEvent(Player player)
     {
-        switch (new Random().Next(1, 6))
+        //switch (new Random().Next(1, 6))
+        //{
+        //     case 1:
+        //       return ExecuteGoldGains(player);
+        //    break;
+        //    case 2:
+        //    return ExecuteTaxLoss(player);
+        //    break;
+        //case 3:
+        //    return ExecuteMoveForward(player);
+        //    break;
+        //case 4:
+        //    return ExecuteMoveBackward(player);
+        //    break;
+        //case 5:
+        //    return ExecuteSkipTurn(player);
+        //    break;
+        //case 6:
+        //    return ExecuteNothingHappens(player);
+        //    break;
+        //default:
+        //    Console.WriteLine("No event triggered.");
+        //    break;
+        //}
+        return new Random().Next(1, 6) switch
         {
-            case 1:
-                ExecuteGoldGains(player);
-                break;
-            case 2:
-                ExecuteTaxLoss(player);
-                break;
-            case 3:
-                ExecuteMoveForward(player);
-                break;
-            case 4:
-                ExecuteMoveBackward(player);
-                break;
-            case 5:
-                ExecuteSkipTurn(player);
-                break;
-            default:
-                Console.WriteLine("No event triggered.");
-                break;
+            1 => ExecuteGoldGains(player),
+            2 => ExecuteTaxLoss(player),
+            3 => ExecuteMoveForward(player),
+            4 => ExecuteMoveBackward(player),
+            5 => ExecuteSkipTurn(player),
+            6 => ExecuteNothingHappens(player),
+            _ => "No event triggered."
+        };
+    }
+    private static string ExecuteGoldGains(Player player)
+    {
+        decimal goldGained = 200m;
+        player.MoneyChanges(goldGained);
+        return $"{player.Name} hat {goldGained} Gold erhalten!";
+    }
+
+
+    private static string ExecuteTaxLoss(Player player)
+    {
+        decimal taxLoss = 100m;
+        decimal money = player.MoneyChanges(-taxLoss);
+        if (money <= 0)
+        {
+            return $"{player.Name} ist Bankrott gegangen!";
+        }
+        else
+        {
+            player.MoneyChanges(-taxLoss);
+            return $"{player.Name} hat {taxLoss} Gold verloren!";
         }
     }
-    private static void ExecuteGoldGains(Player player)
+    private static string ExecuteMoveForward(Player player)
     {
-        int goldGained = 200; 
-        player.Money += goldGained;
-        Console.WriteLine($"{player.Name} hat {goldGained} Gold erhalten!");
+        int spaces = 3;
+        player.GoTo(spaces);
+        return $"{player.Name} ist {spaces} vorwärts gegangen!";
     }
-    private static void ExecuteTaxLoss(Player player)
+    private static string ExecuteMoveBackward(Player player)
     {
-        int taxLoss = 100; 
-        player.Money -= taxLoss;
-        Console.WriteLine($"{player.Name} hat {taxLoss} Gold verloren!");
+        int spaces = 2;
+        player.GoTo(-spaces);
+        return $"{player.Name} ist {spaces} rückwärts gegangen!";
     }
-    private static void ExecuteMoveForward(Player player)
+    private static string ExecuteSkipTurn(Player player)
     {
-        int spaces = 3; 
-        player.Position += spaces;
-        Console.WriteLine($"{player.Name} ist {spaces} vorwärts gegangen!");
+        return $"{player.Name} setzt einen Zug aus!";
     }
-    private static void ExecuteMoveBackward(Player player)
+    private static string ExecuteNothingHappens(Player player)
     {
-        int spaces = 2; 
-        player.Position -= spaces;
-        Console.WriteLine($"{player.Name} ist {spaces} rückwärts gegangen!");
-    }
-    private static void ExecuteSkipTurn(Player player)
-    {
-        Console.WriteLine($"{player.Name} setzt einen Zug aus!");
+        return $"{player.Name} ist auf ein Ereignisloses Feld getreten....";
     }
 }
