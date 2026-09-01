@@ -25,7 +25,7 @@ public class Board {
             {
                 1 => new EventSpace(),
                 2 => new MoneySpace(),
-                3 => new PropertySpace(),
+                3 => new EstateSpace(),
                 _=> throw new Exception()
             });
         }
