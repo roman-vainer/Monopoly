@@ -11,9 +11,9 @@ public class Game {
     private List<Player> players;
     private Board board;
     private Dice dice;
-    Player currentPlayer;
-    private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
-    private
+    private Player currentPlayer;
+    private static readonly Color[] colors = new[] { Color.Blue, Color.Red, Color.Yellow, Color.Green };
+
 
     public Game(List<Player> players, int size) {
         this.players = players;
@@ -39,10 +39,10 @@ public class Game {
     }
 
     private void PlayTurn() {
-        int position = CurrentPlayer.GoTo(Dice.Roll());
-        Board.Spaces[position].ExecuteAction(CurrentPlayer);
-        int currentIndex = Players.IndexOf(CurrentPlayer);
-        CurrentPlayer = Players[(currentIndex + 1) % Players.Count];
+        int position = currentPlayer.GoTo(dice.Roll());
+        board.Spaces[position].ExecuteAction(currentPlayer);
+        int currentIndex = players.IndexOf(currentPlayer);
+        currentPlayer = players[(currentIndex + 1) % players.Count];
     }
 
     public void DrawBoard() {

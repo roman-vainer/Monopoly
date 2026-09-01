@@ -6,6 +6,6 @@ namespace Monopoly;
 public class Dice {
     public int Roll() {
         
-        return new Random().Next(7);
+        return new Random().Next(1, 7);
     }
 }

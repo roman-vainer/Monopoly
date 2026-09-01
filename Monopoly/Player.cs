@@ -24,8 +24,8 @@ public class Player {
         IstAktiv = true;
         Position = 0;
         this.size = size;
-
         Estate = new List<PropertySpace>();
+
     }
     public int GoTo(int steps) {
         return Position = (Position + steps) % size;
