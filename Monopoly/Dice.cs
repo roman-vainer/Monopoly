@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Monopoly; 
+namespace Monopoly;
+
 public class Dice {
+    public int CurrentValue { get; set; }
     public int Roll() {
-        
-        return new Random().Next(7);
+        CurrentValue = new Random().Next(1, 7);
+        return CurrentValue;
     }
 }
