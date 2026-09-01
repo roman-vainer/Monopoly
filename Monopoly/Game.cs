@@ -14,14 +14,14 @@ public class Game {
     private Player currentPlayer;
     private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
     private string message = "";
-    IUserInterface ui;
+    SpectreUI ui;
 
     public Game(List<Player> players, int size) {
         this.players = players;
         Size = size;
         dice = new Dice();
         board = new Board(size);
-        ui = new UserInterface();
+        ui = new SpectreUI();
         Initialization();
 
     }
@@ -37,6 +37,7 @@ public class Game {
         while (true) {
             DrawBoard();
             PlayTurn();
+            Console.ReadLine();
         }
     }
 

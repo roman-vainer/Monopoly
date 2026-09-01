@@ -9,7 +9,11 @@ namespace Monopoly {
         }
 
         public void DrawGame(Board board, List<Player> players, string message, int diceValue) {
-
+            Console.Clear();
+            Console.WriteLine("Board:");
+            board.Spaces.ForEach(p => {
+                Console.WriteLine($"{p.Name}");
+            });
         }
     }
 }
