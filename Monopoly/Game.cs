@@ -8,18 +8,20 @@ namespace Monopoly;
 
 public class Game {
     public int Size { get; }
-    private List<Player> players;
+    public List<Player> players;
     private Board board;
     private Dice dice;
-    Player currentPlayer;
+    private Player currentPlayer;
     private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
-    private
+    private string message = "";
+    IUserInterface ui;
 
     public Game(List<Player> players, int size) {
         this.players = players;
         Size = size;
         dice = new Dice();
-        board = new Board();
+        board = new Board(size);
+        ui = new UserInterface();
         Initialization();
 
     }
@@ -38,14 +40,14 @@ public class Game {
         }
     }
 
-    private void PlayTurn() {
-        int position = CurrentPlayer.GoTo(Dice.Roll());
-        Board.Spaces[position].ExecuteAction(CurrentPlayer);
-        int currentIndex = Players.IndexOf(CurrentPlayer);
-        CurrentPlayer = Players[(currentIndex + 1) % Players.Count];
+    public void PlayTurn() {
+        int position = currentPlayer.GoTo(dice.Roll());
+        message = board.Spaces[position].ExecuteAction(currentPlayer);
+        int currentIndex = players.IndexOf(currentPlayer);
+        currentPlayer = players[(currentIndex + 1) % players.Count];
     }
 
     public void DrawBoard() {
-        Console.Clear();
+        ui.DrawGame(board, players, message, dice.CurrentValue);
     }
 }
