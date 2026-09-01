@@ -37,7 +37,7 @@ public class Game {
     }
 
     private void PlayTurn() {
-        int position = CurrentPlayer.GoTo(Dice.Roll(), Size);
+        int position = CurrentPlayer.GoTo(Dice.Roll());
         Board.Spaces[position].ExecuteAction(CurrentPlayer);
         int currentIndex = Players.IndexOf(CurrentPlayer);
         CurrentPlayer = Players[(currentIndex + 1) % Players.Count];

@@ -1,8 +1,8 @@
 ﻿namespace Monopoly {
     internal class Program {
         static void Main(string[] args) {
-            int size = 20;
-            List<Player> players = CreatePlayers();
+            int size = 28;
+            List<Player> players = CreatePlayers(size);
             Game game = new Game(players, size);
             game.Start();
 
