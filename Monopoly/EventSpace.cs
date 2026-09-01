@@ -5,8 +5,8 @@ using System.Text;
 namespace Monopoly;
 
 public class EventSpace : Space {
-    public override void ExecuteAction(Player player) {
+    public override string ExecuteAction(Player player) {
      
-        Event.TriggerRandomEvent(player);
+        return Event.TriggerRandomEvent(player);
     }
 }
