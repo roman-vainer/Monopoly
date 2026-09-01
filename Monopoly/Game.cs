@@ -7,8 +7,9 @@ using System.Text;
 namespace Monopoly;
 
 public class Game {
-    public List<Player> Players {  get; }
-    public Board Board {  get; }
+    public int Size { get; }
+    public List<Player> Players { get; }
+    public Board Board { get; }
     public Dice Dice { get; }
     Player CurrentPlayer { get; set; }
     private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
@@ -18,6 +19,7 @@ public class Game {
         Dice = new Dice();
         Board = new Board();
         Initialization();
+
     }
 
     private void Initialization() {
@@ -31,13 +33,14 @@ public class Game {
         while (true) {
             DrawBoard();
             PlayTurn();
-            
-
         }
     }
 
     private void PlayTurn() {
-        
+        int position = CurrentPlayer.GoTo(Dice.Roll(), Size);
+        Board.Spaces[position].ExecuteAction(CurrentPlayer);
+        int currentIndex = Players.IndexOf(CurrentPlayer);
+        CurrentPlayer = Players[(currentIndex + 1) % Players.Count];
     }
 
     public void DrawBoard() {

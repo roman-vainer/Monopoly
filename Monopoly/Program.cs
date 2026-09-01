@@ -1,13 +1,9 @@
-﻿namespace Monopoly
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Board board = new Board();
-
+﻿namespace Monopoly {
+    internal class Program {
+        static void Main(string[] args) {
+            int size = 20;
             List<Player> players = CreatePlayers();
-            Game game = new Game(players);
+            Game game = new Game(players, size);
             game.Start();
 
         }
