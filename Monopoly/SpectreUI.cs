@@ -15,7 +15,30 @@ public class SpectreUI : IUserInterface {
         Console.OutputEncoding = Encoding.UTF8; 
         AnsiConsole.Clear();
         DrawTitel();
-        DrawGameboard(board);
+        Grid gameBoard = DrawGameboard(board);
+        Table playerTable = DrawPlayers(players);
+    }
+
+    private Table DrawPlayers(List<Player> players) {
+        Table tabble = new Table();
+        tabble.Title = new TableTitle("[bold]PLAYERS[/]");
+        tabble.AddColumn("Player");
+        tabble.AddColumn("Money");
+        tabble.AddColumn("Position");
+        tabble.AddColumn("Lap");
+        tabble.AddColumn("Estates");
+        foreach (var player in players) {
+            string color = player.PlayerColor.ToMarkup();
+
+            tabble.AddRow(
+                $"[{color}]{player.Name}[/]",
+                $"{player.Money}",
+                $"{player.Position}",
+                $"{player.Lap}",
+                $"{player.Estate}"
+                );
+        }
+
     }
 
     private void DrawTitel() {
@@ -25,7 +48,7 @@ public class SpectreUI : IUserInterface {
             .Color(Color.Blue));
     }
 
-    private void DrawGameboard(Board board) {
+    private Grid DrawGameboard(Board board) {
 
         int side = board.Spaces.Count / 4 + 1;
 
@@ -70,6 +93,7 @@ public class SpectreUI : IUserInterface {
             grid.AddRow(rowCells);
         }
         AnsiConsole.Write(grid);
+        return grid;
     }
 
     private Panel CreateSpasePanel(Space space, int position) {
