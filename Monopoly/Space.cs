@@ -9,8 +9,4 @@ public abstract class Space {
 
     public abstract string ExecuteAction(Player player);
 
-    public virtual void OnLand(Player player, Dice dice)
-    {
-        
-    }
 }
