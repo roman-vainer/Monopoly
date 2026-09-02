@@ -15,8 +15,7 @@
                 Console.WriteLine($"Geben Sie den Namen der {i + 1}. Spielers ein");
                 players.Add(new Player(Console.ReadLine()!));
             }
-                return players;
+            return players;
         }
     }
-}
 }

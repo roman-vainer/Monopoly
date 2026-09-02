@@ -86,7 +86,7 @@ public class SpectreUI : IUserInterface {
                 new Markup($"[purple]{space.Name}[/]\n[bold purple]?[/]"));
         } else if (space is EstateSpace estateSpace) {
             panel = new Panel(
-                new Markup($"[cyan]{space.Name}[/]\n{estateSpace.Prise} €"));
+                new Markup($"[cyan]{space.Name}[/]\n{estateSpace.Price} €"));
         } else {
             panel = new Panel(space.Name);
         }
