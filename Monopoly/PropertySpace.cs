@@ -5,7 +5,7 @@ using System.Text;
 namespace Monopoly;
 
 public class PropertySpace : Space {
-    public PropertySpace(string name, int position) : base(name, position)
+    public PropertySpace()
     {
         Name = this.GetType().Name;
     }

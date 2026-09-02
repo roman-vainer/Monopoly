@@ -24,7 +24,7 @@ public class Board {
             spaces.Add(rdm switch
             {
                 1 => new EventSpace(),
-                2 => new MoneySpace(),
+                2 => new MoneySpace(random.Next(1,6) * 100),
                 3 => new EstateSpace(),
                 _=> throw new Exception()
             });
