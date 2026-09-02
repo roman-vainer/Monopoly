@@ -11,9 +11,12 @@ public class StartSpace : Space
 
     public string? RoundSwitch { get; set; }
 
+    public StartSpace(){
+        Name = this.GetType().Name;
+    }
+
     public override string ExecuteAction(Player player)
     {
-
 
         RoundSwitch = Round switch
         {
