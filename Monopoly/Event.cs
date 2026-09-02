@@ -45,6 +45,7 @@ public class Event
             _ => "No event triggered."
         };
     }
+    //Ausführung der einzelnen Event-Logiken, die den Spieler beeinflussen.
     private static string ExecuteGoldGains(Player player)
     {
         decimal goldGained = 200m;

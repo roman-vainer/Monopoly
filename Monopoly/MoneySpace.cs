@@ -1,11 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Monopoly;
 
-public class MoneySpace : Space {
-    public override string ExecuteAction(Player player) {
-        return "";
+public class MoneySpace : Space
+{
+ 
+    public int Amount { get; private set; }
+
+    public MoneySpace(int amount)
+    {
+        Amount = amount;
+        Name = this.GetType().Name;
     }
+
+    public override string ExecuteAction(Player player)
+    {
+        int position = player.Position;
+        if (position % 2 == 0)
+        {
+            player.MoneyChanges(Amount);
+            return $"{player.Name} befindet sich auf einem geraden Feld und erhält {Amount}.";
+        }
+        else
+        {
+            player.MoneyChanges(-Amount);
+            return $"{player.Name} befindet sich auf einem ungeraden Feld und zahlt {Amount}!";
+        }
+    }
+
 }
+  
+       
+
