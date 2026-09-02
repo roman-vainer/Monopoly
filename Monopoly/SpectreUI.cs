@@ -12,18 +12,28 @@ public class SpectreUI : IUserInterface {
     }
 
     public void DrawGame(Board board, List<Player> players, string message, int diceValue) {
+        Console.OutputEncoding = Encoding.UTF8; 
+        AnsiConsole.Clear();
+        DrawTitel();
         DrawGameboard(board);
     }
 
-    private void DrawGameboard(Board board) {
-        int side = board.Spaces.Count / 4 + 1;
+    private void DrawTitel() {
+        AnsiConsole.Write(
+            new FigletText("MONOPOLY")
+            .Centered()
+            .Color(Color.Blue));
+    }
 
+    private void DrawGameboard(Board board) {
+
+        int side = board.Spaces.Count / 4 + 1;
 
         IRenderable[,] cells = new IRenderable[side, side];
 
         for (int row = 0; row < side; row++) {
             for (int column = 0; column < side; column++) {
-                cells[row, column] = new Text("*");
+                cells[row, column] = new Text("");
             }
         }
         int index = 0;
@@ -59,6 +69,7 @@ public class SpectreUI : IUserInterface {
             }
             grid.AddRow(rowCells);
         }
+        AnsiConsole.Write(grid);
     }
 
     private Panel CreateSpasePanel(Space space, int position) {
@@ -70,16 +81,18 @@ public class SpectreUI : IUserInterface {
             panel = new Panel(
                 new Markup(
                     $"[yellow]{space.Name}[/]\n{moneySpace.Amount} €"));
-        } else if(space is EventSpace) {
+        } else if (space is EventSpace) {
             panel = new Panel(
                 new Markup($"[purple]{space.Name}[/]\n[bold purple]?[/]"));
-        } else if(space is EstateSpace estateSpace) {
+        } else if (space is EstateSpace estateSpace) {
             panel = new Panel(
                 new Markup($"[cyan]{space.Name}[/]\n{estateSpace.Prise} €"));
         } else {
             panel = new Panel(space.Name);
         }
-        panel.Header = new PanelHeader($"{position}");
+        panel.Header = new PanelHeader($"{position + 1}");
+        panel.Width = 14;
+        panel.Height = 5;
         panel.Padding = new Padding(1, 0);
         return panel;
     }
