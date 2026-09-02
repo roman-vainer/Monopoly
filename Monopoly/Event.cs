@@ -87,7 +87,8 @@ public class Event
 
     private static string ExecuteDeath(Player player)
     {
-        player.IstAktiv = false;
+        player.Money = 0;
+        player.MoneyChanges(-player.Money);
         return $"{player.Name} ist gestorben und aus dem Spiel ausgeschieden!";
     }
     private static string ExecuteNothingHappens(Player player)
