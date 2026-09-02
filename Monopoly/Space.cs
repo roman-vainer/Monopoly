@@ -6,5 +6,11 @@ namespace Monopoly;
 public abstract class Space {
     public string Name { get; set; }
     public int Position { get; set; }
+
     public abstract string ExecuteAction(Player player);
+
+    public virtual void OnLand(Player player, Dice dice)
+    {
+        
+    }
 }

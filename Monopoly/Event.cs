@@ -33,7 +33,11 @@ public class Event
         //    Console.WriteLine("No event triggered.");
         //    break;
         //}
-        return new Random().Next(1, 6) switch
+
+
+
+        //Event Logik die zufällig einen der 6 Einträge zieht.
+        return new Random().Next(1, 6) switch  
         {
             1 => ExecuteGoldGains(player),
             2 => ExecuteTaxLoss(player),
@@ -44,6 +48,7 @@ public class Event
             _ => "No event triggered."
         };
     }
+    //Ausführung der einzelnen Event-Logiken, die den Spieler beeinflussen.
     private static string ExecuteGoldGains(Player player)
     {
         decimal goldGained = 200m;

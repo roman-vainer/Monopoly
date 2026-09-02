@@ -16,6 +16,7 @@ public class Game {
     private string message = "";
     SpectreUI ui;
 
+
     public Game(List<Player> players, int size) {
         this.players = players;
         Size = size;
