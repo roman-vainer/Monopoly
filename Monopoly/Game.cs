@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Monopoly;
 
-public class Game {
+public class Game
+{
     public int Size { get; }
     public List<Player> players;
     private Board board;
@@ -17,7 +18,8 @@ public class Game {
     SpectreUI ui;
 
 
-    public Game(List<Player> players, int size) {
+    public Game(List<Player> players, int size)
+    {
         this.players = players;
         Size = size;
         dice = new Dice();
@@ -27,29 +29,81 @@ public class Game {
 
     }
 
-    private void Initialization() {
+    private void Initialization()
+    {
         currentPlayer = players[new Random().Next(players.Count)];
-        for (int i = 0; i < players.Count; i++) {
+        for (int i = 0; i < players.Count; i++)
+        {
             players[i].PlayerColor = colors[i];
         }
     }
 
-    public void Start() {
-        while (true) {
+
+    public void Start()
+    {
+        while (!IsEnd())
+        {
             DrawBoard();
             PlayTurn();
-            Console.ReadLine();
         }
+        Player player =DetermineWinner();
+        DrawFinalState(player);
     }
 
-    public void PlayTurn() {
-        int position = currentPlayer.GoTo(dice.Roll());
+    private void DrawFinalState(Player player)
+    {
+        ui.DrawFinalState(player);
+    }
+
+    private Player DetermineWinner()
+    {
+        Player player= null;
+        decimal money = 0;
+        foreach(Player currentPlayer in players) {
+            if (currentPlayer.IsActive && currentPlayer.Money > money) {
+                money = currentPlayer.Money;
+                player = currentPlayer;
+            }
+        }
+        return player;
+    }
+
+
+    public void PlayTurn()
+    {
+        int steps = dice.Roll();
+        int position = currentPlayer.GoTo(steps);
         message = board.Spaces[position].ExecuteAction(currentPlayer);
-        int currentIndex = players.IndexOf(currentPlayer);
-        currentPlayer = players[(currentIndex + 1) % players.Count];
+
+       
+       
+       
+
+       
+    }
+    // IsEnd guckt ob das Spiel zu Ende ist.
+    // Konditionen:
+    // - Ein beliebiger Spieler hat 3-mal hintereinander das Startfeld passiert (StartPassStreak >= 3)
+    // - 3 beliebige Spieler haben kein Geld mehr (Money <= 0) oder sind nicht aktiv (IstAktiv == false)
+    // Returned den Gewinner.
+
+    public bool IsEnd()
+    {
+        int activePlayers = players.Count(p => p.IsActive);
+        var allLaps = players.FirstOrDefault(p => p.StartPassStreak >= 3);
+        if (activePlayers <= 1 || allLaps != null)
+        {
+            return true;
+        }
+        return false;
     }
 
-    public void DrawBoard() {
+    public void DrawBoard()
+    {
         ui.DrawGame(board, players, message, dice.CurrentValue);
     }
+
 }
+
+
+

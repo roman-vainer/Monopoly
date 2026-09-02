@@ -10,9 +10,11 @@ namespace Monopoly;
 public class Player {
     public string Name { get; set; }
     public decimal Money { get; set; }
-    public int Punkte { get; set; }
-    public bool IstAktiv { get; set; }
+    //Prüft ob ein Spieler noch aktiv ist, wenn er pleite ist, wird er inaktiv
+    public bool IsActive { get; set; }
     public int Position { get; set; }
+    // Anzahl der aufeinanderfolgenden Male, die der Spieler das Startfeld passiert hat
+    public int StartPassStreak { get; set; }
     public List<EstateSpace> Estate { get; }
     public Color PlayerColor { get; set; }
     public static int Size { get; set; }
@@ -20,9 +22,9 @@ public class Player {
     public Player(string name) {
         Name = name;
         Money = 1000m;
-        Punkte = 0;
-        IstAktiv = true;
+        IsActive = true;
         Position = 0;
+        StartPassStreak = 0;
 
         Estate = new List<EstateSpace>();
     }
@@ -34,7 +36,7 @@ public class Player {
     {
         if (Money + amount <0)
         {
-            IstAktiv = false;
+            IsActive = false;
             Money = 0;
             return Money;
         }
@@ -45,3 +47,4 @@ public class Player {
         }
     }
 }
+  

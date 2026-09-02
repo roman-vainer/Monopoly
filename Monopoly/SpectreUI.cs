@@ -96,4 +96,9 @@ public class SpectreUI : IUserInterface {
         panel.Padding = new Padding(1, 0);
         return panel;
     }
+
+    internal void DrawFinalState(Player player)
+    {
+        throw new NotImplementedException();
+    }
 }
