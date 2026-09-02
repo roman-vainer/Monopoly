@@ -9,29 +9,50 @@ public class StartSpace : Space
 
     public int Round { get; set; } = 0;
 
-    public string? RoundSwitch { get; set; }
-
     public StartSpace(){
         Name = this.GetType().Name;
     }
 
     public override string ExecuteAction(Player player)
     {
-
-        RoundSwitch = Round switch
+        switch (Round)
         {
-            1 => "First",
-            2 => "Second",
-            3 => "Third",
-            _ => "Unknown"
-        };
+            case 0:
+                return $"{player.Name} hat die Startposition erreicht";
 
-        return RoundSwitch switch
-        {
-            "First" => $"{player.Name} hat die Startposition erreicht und erhält 200 Punkte",
-            "Second" => $"{player.Name} hat die Startposition erreicht und erhält 400 Punkte",
-            "Third" => $"{player.Name} hat die Startposition erreicht und erhält 600 Punkte",
-            _ => $"{player.Name} hat die Startposition erreicht"
-        };
+            case 1:
+                Round++;
+                player.MoneyChanges(200);
+                return $"{player.Name} hat die Startposition erreicht und erhält 200 €";
+
+            case 2:
+                Round++;
+                player.MoneyChanges(400);
+                return $"{player.Name} hat die Startposition erreicht und erhält 400 €";
+
+            case 3:
+                Round = -1;
+                player.MoneyChanges(600);
+                return $"{player.Name} hat die Startposition erreicht und erhält 600 €";
+
+            default:
+                return "Ungültige Runde";
+        }
+
+        //RoundSwitch = Round switch
+        //{
+        //    1 => "First",
+        //    2 => "Second",
+        //    3 => "Third",
+        //    _ => "Unknown"
+        //};
+        //Round++;
+        //return RoundSwitch switch
+        //{
+        //    "First" => $"{player.Name} hat die Startposition erreicht und erhält 200 €",
+        //    "Second" => $"{player.Name} hat die Startposition erreicht und erhält 400 €",
+        //    "Third" => $"{player.Name} hat die Startposition erreicht und erhält 600 €",
+        //    _ => $"{player.Name} hat die Startposition erreicht"
+        //};
     }
 }
