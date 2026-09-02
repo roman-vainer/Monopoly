@@ -12,11 +12,17 @@ public class SpectreUI : IUserInterface {
     }
 
     public void DrawGame(Board board, List<Player> players, string message, int diceValue) {
-        Console.OutputEncoding = Encoding.UTF8; 
+        Console.OutputEncoding = Encoding.UTF8;
         AnsiConsole.Clear();
         DrawTitel();
         Grid gameBoard = DrawGameboard(board);
         Table playerTable = DrawPlayers(players);
+
+        Grid mainGrid = new Grid();
+        mainGrid.AddColumn();
+        mainGrid.AddColumn();
+        mainGrid.AddRow(gameBoard, playerTable);
+        AnsiConsole.Write(mainGrid);
     }
 
     private Table DrawPlayers(List<Player> players) {
@@ -26,7 +32,7 @@ public class SpectreUI : IUserInterface {
         tabble.AddColumn("Money");
         tabble.AddColumn("Position");
         tabble.AddColumn("Lap");
-        tabble.AddColumn("Estates");
+        //tabble.AddColumn("Estates");
         foreach (var player in players) {
             string color = player.PlayerColor.ToMarkup();
 
@@ -34,11 +40,12 @@ public class SpectreUI : IUserInterface {
                 $"[{color}]{player.Name}[/]",
                 $"{player.Money}",
                 $"{player.Position}",
-                $"{player.Lap}",
-                $"{player.Estate}"
+                $"{player.Lap}"
+                //$"{player.Estate}"
                 );
         }
-
+        tabble.Width = 65;
+        return tabble;
     }
 
     private void DrawTitel() {
@@ -92,7 +99,6 @@ public class SpectreUI : IUserInterface {
             }
             grid.AddRow(rowCells);
         }
-        AnsiConsole.Write(grid);
         return grid;
     }
 
