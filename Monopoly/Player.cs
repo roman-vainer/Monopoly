@@ -13,22 +13,21 @@ public class Player {
     public int Punkte { get; set; }
     public bool IstAktiv { get; set; }
     public int Position { get; set; }
-    public List<PropertySpace> Estate { get; }
+    public List<EstateSpace> Estate { get; }
     public Color PlayerColor { get; set; }
-    private int size;
+    public static int Size { get; set; }
 
-    public Player(string name, int size) {
+    public Player(string name) {
         Name = name;
         Money = 1000m;
         Punkte = 0;
         IstAktiv = true;
         Position = 0;
-        this.size = size;
-        Estate = new List<PropertySpace>();
 
+        Estate = new List<EstateSpace>();
     }
     public int GoTo(int steps) {
-        return Position = (Position + steps) % size;
+        return Position = (Position + steps) % Size;
 
     }
     public decimal MoneyChanges (decimal amount)
