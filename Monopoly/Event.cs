@@ -33,7 +33,7 @@ public class Event
         //    Console.WriteLine("No event triggered.");
         //    break;
         //}
-        return new Random().Next(1, 6) switch
+        return new Random().Next(1, 7) switch
         {
             1 => ExecuteGoldGains(player),
             2 => ExecuteTaxLoss(player),
@@ -41,6 +41,7 @@ public class Event
             4 => ExecuteMoveBackward(player),
             5 => ExecuteSkipTurn(player),
             6 => ExecuteNothingHappens(player),
+            7 => ExecuteDeath(player),
             _ => "No event triggered."
         };
     }
@@ -81,6 +82,12 @@ public class Event
     private static string ExecuteSkipTurn(Player player)
     {
         return $"{player.Name} setzt einen Zug aus!";
+    }
+
+    private static string ExecuteDeath(Player player)
+    {
+        player.IstAktiv = false;
+        return $"{player.Name} ist gestorben und aus dem Spiel ausgeschieden!";
     }
     private static string ExecuteNothingHappens(Player player)
     {

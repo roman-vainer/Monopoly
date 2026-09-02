@@ -4,40 +4,31 @@ using System.Text;
 
 namespace Monopoly;
 
-public class StartSpace : Space {
+public class StartSpace : Space
+{
 
     public int Round { get; set; } = 0;
 
-    public int BoardSize { get; set; }
+    public string? RoundSwitch { get; set; }
+
+    public override string ExecuteAction(Player player)
+    {
 
 
-    public override string ExecuteAction(Player player) {
-        Random random = new Random();
-
-        if (random.Next(50) == 0 && Round >= 2)
+        RoundSwitch = Round switch
         {
-            player.IstAktiv = false;
-            return $"{player.Name} wurde getötet";
-        }
+            1 => "First",
+            2 => "Second",
+            3 => "Third",
+            _ => "Unknown"
+        };
 
-
-            switch (Round)
+        return RoundSwitch switch
         {
-            case 1:
-                player.MoneyChanges(200);
-                Round++;
-                return $"{player.Name} hat die Startposition erreicht und erhält 200 Punkte";
-            case 2:
-                player.MoneyChanges(400);
-                Round++;
-                return $"{player.Name} hat die Startposition erreicht und erhält 400 Punkte";
-            case 3:
-                player.MoneyChanges(600);
-                Round++;
-                return $"{player.Name} hat die Startposition erreicht und erhält 600 Punkte";
-            case >= 4:
-                return $"{player.Name} hat die Spiel erreicht";
-        }
-
+            "First" => $"{player.Name} hat die Startposition erreicht und erhält 200 Punkte",
+            "Second" => $"{player.Name} hat die Startposition erreicht und erhält 400 Punkte",
+            "Third" => $"{player.Name} hat die Startposition erreicht und erhält 600 Punkte",
+            _ => $"{player.Name} hat die Startposition erreicht"
+        };
     }
 }
