@@ -7,7 +7,7 @@ public class MoneySpace : Space
  
     public int Amount { get; private set; }
 
-    public MoneySpace(string name, int position, int amount) : base(name, position)
+    public MoneySpace(int amount)
     {
         Amount = amount;
         Name = this.GetType().Name;
@@ -15,27 +15,20 @@ public class MoneySpace : Space
 
     public override string ExecuteAction(Player player)
     {
-        int roll = Roll();
-        if (roll % 2 == 0)
+        int position = player.Position;
+        if (position % 2 == 0)
         {
-            player.MoneyChanges(150);
-            return $"{player.Name} hat eine {roll} gewürfelt und erhält 150.";
+            player.MoneyChanges(Amount);
+            return $"{player.Name} befindet sich auf einem geraden Feld und erhält {Amount}.";
         }
         else
         {
-            player.MoneyChanges(-100);
-            return $"{player.Name} hat eine {roll} gewürfelt und zahlt 100!";
+            player.MoneyChanges(-Amount);
+            return $"{player.Name} befindet sich auf einem ungeraden Feld und zahlt {Amount}!";
         }
     }
 
-    public override void OnLand(Player player, Dice dice)
-    {
-        ExecuteAction(player);
-    }
-    public static int Roll()
-    {
-        return new Random().Next(1, 7);
-    }
+}
+  
        
 
-}
