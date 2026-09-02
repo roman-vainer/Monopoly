@@ -15,23 +15,20 @@ public class StartSpace : Space
 
     public override string ExecuteAction(Player player)
     {
-        switch (Round)
+        switch (Game.CurrentRound)
         {
             case 0:
                 return $"{player.Name} hat die Startposition erreicht";
 
             case 1:
-                Round++;
                 player.MoneyChanges(200);
                 return $"{player.Name} hat die Startposition erreicht und erhält 200 €";
 
             case 2:
-                Round++;
                 player.MoneyChanges(400);
                 return $"{player.Name} hat die Startposition erreicht und erhält 400 €";
 
             case 3:
-                Round = -1;
                 player.MoneyChanges(600);
                 return $"{player.Name} hat die Startposition erreicht und erhält 600 €";
 
