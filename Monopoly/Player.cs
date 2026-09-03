@@ -9,10 +9,10 @@ namespace Monopoly;
 
 public class Player {
     public string Name { get; set; }
-    public decimal Money { get; set; }
+    public decimal Money { get; private set; }
     public int Punkte { get; set; }
     public bool IstAktiv { get; set; }
-    public int Position { get; set; }
+    public int Position { get; private set; }
     public List<EstateSpace> Estate { get; }
     public Color PlayerColor { get; set; }
     public static int Size { get; set; }
