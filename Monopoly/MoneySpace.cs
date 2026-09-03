@@ -10,7 +10,7 @@ public class MoneySpace : Space
     public MoneySpace(int amount)
     {
         Amount = amount;
-        Name = this.GetType().Name;
+        Name = "MONEY";
     }
 
     public override string ExecuteAction(Player player)

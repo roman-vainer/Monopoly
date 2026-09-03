@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using Spectre.Console;
 using Spectre.Console.Rendering;
@@ -8,15 +9,32 @@ using Spectre.Console.Rendering;
 namespace Monopoly;
 
 public class SpectreUI : IUserInterface {
+    private int side;
+    private Board board;
+    private List<Player> players;
+    private string message;
+    private int diceValue;
+    Player currentPlayer;
+
+    public SpectreUI(Board board, List<Player> players) {
+        this.board = board;
+        this.players = players;
+        message = "";
+        diceValue = 0;
+    }
     public void DisplayMessage(string message) {
     }
 
-    public void DrawGame(Board board, List<Player> players, string message, int diceValue) {
+    public void DrawGame(string message, int diceValue, Player currentPlayer) {
+        this.message = message;
+        this.diceValue = diceValue;
+        this.currentPlayer = currentPlayer;
         Console.OutputEncoding = Encoding.UTF8;
         AnsiConsole.Clear();
+
         DrawTitel();
-        Grid gameBoard = DrawGameboard(board);
-        Table playerTable = DrawPlayers(players);
+        Grid gameBoard = DrawGameboard();
+        Table playerTable = DrawPlayers();
 
         Grid mainGrid = new Grid();
         mainGrid.AddColumn();
@@ -25,7 +43,7 @@ public class SpectreUI : IUserInterface {
         AnsiConsole.Write(mainGrid);
     }
 
-    private Table DrawPlayers(List<Player> players) {
+    private Table DrawPlayers() {
         Table tabble = new Table();
         tabble.Title = new TableTitle("[bold]PLAYERS[/]");
         tabble.AddColumn("Player");
@@ -55,80 +73,142 @@ public class SpectreUI : IUserInterface {
             .Color(Color.Blue));
     }
 
-    private Grid DrawGameboard(Board board) {
+    private Grid DrawGameboard() {
 
-        int side = board.Spaces.Count / 4 + 1;
+        side = board.Spaces.Count / 4 + 1;
 
-        IRenderable[,] cells = new IRenderable[side, side];
-
-        for (int row = 0; row < side; row++) {
-            for (int column = 0; column < side; column++) {
-                cells[row, column] = new Text("");
-            }
-        }
-        int index = 0;
-        for (int column = 0; column < side; column++) {
-            cells[0, column] = CreateSpasePanel(board.Spaces[index], index);
-            index++;
-        }
-
-        for (int row = 1; row < side; row++) {
-            cells[row, side - 1] = CreateSpasePanel(board.Spaces[index], index);
-            index++;
-        }
-
-        for (int column = side - 2; column >= 0; column--) {
-            cells[side - 1, column] = CreateSpasePanel(board.Spaces[index], index);
-            index++;
-        }
-        for (int row = side - 2; row > 0; row--) {
-            cells[row, 0] = CreateSpasePanel(board.Spaces[index], index);
-            index++;
-        }
-
-        Grid grid = new Grid();
-
+        Grid topGrid = new Grid();
         for (int i = 0; i < side; i++) {
-            grid.AddColumn();
+            topGrid.AddColumn();
+        }
+        IRenderable[] topCells = new IRenderable[side];
+        for (int i = 0; i < side; i++) {
+            topCells[i] = CreateSpasePanel(board.Spaces[i], i);
+        }
+        topGrid.AddRow(topCells);
+        int index = side;
+
+
+        Grid rightGrid = new Grid();
+        rightGrid.AddColumn();
+
+        for (int i = 1; i < side - 1; i++) {
+            rightGrid.AddRow(CreateSpasePanel(board.Spaces[index], index));
+            index++;
         }
 
-        for (int row = 0; row < side; row++) {
-            IRenderable[] rowCells = new IRenderable[side];
-            for (int column = 0; column < side; column++) {
-                rowCells[column] = cells[row, column];
-            }
-            grid.AddRow(rowCells);
+
+        Grid bottomGrid = new Grid();
+        for (int i = 0; i < side; i++) {
+            bottomGrid.AddColumn();
         }
-        return grid;
+        IRenderable[] bottomCells = new IRenderable[side];
+
+        for (int i = side - 1; i >= 0; i--) {
+            bottomCells[i] = CreateSpasePanel(board.Spaces[index], index);
+            index++;
+        }
+        bottomGrid.AddRow(bottomCells);
+
+        Grid leftGrid = new Grid();
+        leftGrid.AddColumn();
+
+        for (int i = board.Spaces.Count - 1; i >= index; i--) {
+            leftGrid.AddRow(CreateSpasePanel(board.Spaces[i], i));
+        }
+
+        Panel gameInfo = CreateGameInfo();
+
+        Grid middleGrid = new Grid();
+        middleGrid.AddColumn();
+        middleGrid.AddColumn();
+        middleGrid.AddColumn();
+        middleGrid.AddRow(
+            leftGrid,
+            gameInfo,
+            rightGrid
+            );
+
+        Grid boardGrid = new Grid();
+        boardGrid.AddColumn();
+        boardGrid.AddRow(topGrid);
+        boardGrid.AddRow(middleGrid);
+        boardGrid.AddRow(bottomGrid);
+
+        return boardGrid;
     }
 
     private Panel CreateSpasePanel(Space space, int position) {
+
+        string token = CreateTokenPosition(position);
+
         Panel panel;
         if (space is StartSpace) {
             panel = new Panel(
-                new Markup($"[bold green]{space.Name}[/]"));
+                Align.Center(
+                    new Markup($"[bold green]{space.Name}[/]\n🏁\n" +
+                        $"{token}"), VerticalAlignment.Middle
+                    ).Height(3)
+                );
         } else if (space is MoneySpace moneySpace) {
             panel = new Panel(
-                new Markup(
-                    $"[yellow]{space.Name}[/]\n{moneySpace.Amount} €"));
+                Align.Center(
+                    new Markup(
+                        $"[yellow]{space.Name}[/]\n💰 " +
+                        $"{moneySpace.Amount} €\n" +
+                        $"{token}"), VerticalAlignment.Middle
+                    ).Height(3)
+                );
         } else if (space is EventSpace) {
             panel = new Panel(
-                new Markup($"[purple]{space.Name}[/]\n[bold purple]?[/]"));
+                 Align.Center(
+                      new Markup($"[purple]{space.Name}[/]\n❓\n" +
+                         $"{token}"), VerticalAlignment.Middle
+                      ).Height(3)
+                 );
         } else if (space is EstateSpace estateSpace) {
             panel = new Panel(
-                new Markup($"[cyan]{space.Name}[/]\n{estateSpace.Price} €"));
+                Align.Center(
+                    new Markup($"[cyan]{space.Name}[/]\n🏠 " +
+                        $"{estateSpace.Price} €\n" +
+                        $"{token}"), VerticalAlignment.Middle
+                    ).Height(3)
+                );
         } else {
             panel = new Panel(space.Name);
         }
-        panel.Header = new PanelHeader($"{position + 1}");
+        panel.Header = new PanelHeader($"{position + 1}", Justify.Center);
         panel.Width = 14;
         panel.Height = 5;
         panel.Padding = new Padding(1, 0);
         return panel;
     }
 
-    internal void DrawFinalState(Player player)
-    {
+    private string CreateTokenPosition(int position) {
+        string token = "";
+
+        foreach (var player in players) {
+            if (player.Position == position) {
+                token += player.Token;
+            }
+        }
+        return token;
+    }
+
+    private Panel CreateGameInfo() {
+        Markup content = new Markup(
+            $"Curent Player: {currentPlayer.Token} {currentPlayer.Name}" +
+            $"\U0001F3B2 \U0001F3B2 {diceValue}\n\n" +
+            $"[bold]Message:[/]{message}"
+            );
+        Panel panel = new Panel(content);
+        panel.Header = new PanelHeader("GAME INFO", Justify.Center);
+        panel.Width = (side - 1) * 14 - 4;
+        panel.Height = (side - 2) * 5;
+        return panel;
+    }
+
+    internal void DrawFinalState(Player player) {
         Console.ReadLine();
     }
 }

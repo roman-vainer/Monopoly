@@ -15,8 +15,10 @@ public class Player {
     public int Position { get; private set; }
     public List<EstateSpace> Estate { get; }
     public Color PlayerColor { get; set; }
+    public string Token {  get; set; }
     public static int Size { get; set; }
     public int Lap { get; set; } = 0;
+    public static int i = 0;
 
 
     public Player(string name) {
@@ -25,7 +27,6 @@ public class Player {
         Punkte = 0;
         IsActive = true;
         Position = 0;
-
         Estate = new List<EstateSpace>();
     }
     public int GoTo(int steps) {

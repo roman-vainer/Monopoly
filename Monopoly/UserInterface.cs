@@ -8,12 +8,8 @@ namespace Monopoly {
             Console.WriteLine(message);
         }
 
-        public void DrawGame(Board board, List<Player> players, string message, int diceValue) {
-            Console.Clear();
-            Console.WriteLine("Board:");
-            board.Spaces.ForEach(p => {
-                Console.WriteLine($"{p.Name}");
-            });
+        public void DrawGame(string message, int diceValue, Player player) {
+           
         }
     }
 }
