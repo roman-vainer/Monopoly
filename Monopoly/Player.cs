@@ -9,7 +9,7 @@ namespace Monopoly;
 
 public class Player {
     public string Name { get; set; }
-    public decimal Money { get; private set; }
+    public decimal Money { get; set; }
     public int Punkte { get; set; }
     public bool IstAktiv { get; set; }
     public int Position { get; private set; }
