@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Monopoly; 
 public abstract class Space {
-    public string Name { get; set; }
-    public int Position { get; set; }
+    public string? Name { get; protected set; }
 
     public abstract string ExecuteAction(Player player);
 

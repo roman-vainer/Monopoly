@@ -6,53 +6,17 @@ namespace Monopoly;
 
 public class StartSpace : Space
 {
-
-    public int Round { get; set; } = 0;
-
-    public StartSpace(){
+    public StartSpace()
+    {
         Name = this.GetType().Name;
     }
 
     public override string ExecuteAction(Player player)
     {
-        switch (Round)
-        {
-            case 0:
-                return $"{player.Name} hat die Startposition erreicht";
+        int lap = player.Lap;
+        decimal gewinn = player.Money / 3 * (lap + 1);
 
-            case 1:
-                Round++;
-                player.MoneyChanges(200);
-                return $"{player.Name} hat die Startposition erreicht und erhält 200 €";
-
-            case 2:
-                Round++;
-                player.MoneyChanges(400);
-                return $"{player.Name} hat die Startposition erreicht und erhält 400 €";
-
-            case 3:
-                Round = -1;
-                player.MoneyChanges(600);
-                return $"{player.Name} hat die Startposition erreicht und erhält 600 €";
-
-            default:
-                return "Ungültige Runde";
-        }
-
-        //RoundSwitch = Round switch
-        //{
-        //    1 => "First",
-        //    2 => "Second",
-        //    3 => "Third",
-        //    _ => "Unknown"
-        //};
-        //Round++;
-        //return RoundSwitch switch
-        //{
-        //    "First" => $"{player.Name} hat die Startposition erreicht und erhält 200 €",
-        //    "Second" => $"{player.Name} hat die Startposition erreicht und erhält 400 €",
-        //    "Third" => $"{player.Name} hat die Startposition erreicht und erhält 600 €",
-        //    _ => $"{player.Name} hat die Startposition erreicht"
-        //};
+        player.MoneyChanges(gewinn);
+        return $"{player.Name} ist die {lap}. Runde durchgelaufen und erhält {gewinn} €";
     }
 }
