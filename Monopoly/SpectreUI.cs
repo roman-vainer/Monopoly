@@ -12,10 +12,40 @@ public class SpectreUI : IUserInterface {
     }
 
     public void DrawGame(Board board, List<Player> players, string message, int diceValue) {
-        Console.OutputEncoding = Encoding.UTF8; 
+        Console.OutputEncoding = Encoding.UTF8;
         AnsiConsole.Clear();
         DrawTitel();
-        DrawGameboard(board);
+        Grid gameBoard = DrawGameboard(board);
+        Table playerTable = DrawPlayers(players);
+
+        Grid mainGrid = new Grid();
+        mainGrid.AddColumn();
+        mainGrid.AddColumn();
+        mainGrid.AddRow(gameBoard, playerTable);
+        AnsiConsole.Write(mainGrid);
+    }
+
+    private Table DrawPlayers(List<Player> players) {
+        Table tabble = new Table();
+        tabble.Title = new TableTitle("[bold]PLAYERS[/]");
+        tabble.AddColumn("Player");
+        tabble.AddColumn("Money");
+        tabble.AddColumn("Position");
+        tabble.AddColumn("Lap");
+        //tabble.AddColumn("Estates");
+        foreach (var player in players) {
+            string color = player.PlayerColor.ToMarkup();
+
+            tabble.AddRow(
+                $"[{color}]{player.Name}[/]",
+                $"{player.Money}",
+                $"{player.Position}",
+                $"{player.Lap}"
+                //$"{player.Estate}"
+                );
+        }
+        tabble.Width = 65;
+        return tabble;
     }
 
     private void DrawTitel() {
@@ -25,7 +55,7 @@ public class SpectreUI : IUserInterface {
             .Color(Color.Blue));
     }
 
-    private void DrawGameboard(Board board) {
+    private Grid DrawGameboard(Board board) {
 
         int side = board.Spaces.Count / 4 + 1;
 
@@ -69,7 +99,7 @@ public class SpectreUI : IUserInterface {
             }
             grid.AddRow(rowCells);
         }
-        AnsiConsole.Write(grid);
+        return grid;
     }
 
     private Panel CreateSpasePanel(Space space, int position) {
@@ -86,7 +116,7 @@ public class SpectreUI : IUserInterface {
                 new Markup($"[purple]{space.Name}[/]\n[bold purple]?[/]"));
         } else if (space is EstateSpace estateSpace) {
             panel = new Panel(
-                new Markup($"[cyan]{space.Name}[/]\n{estateSpace.Prise} €"));
+                new Markup($"[cyan]{space.Name}[/]\n{estateSpace.Price} €"));
         } else {
             panel = new Panel(space.Name);
         }
