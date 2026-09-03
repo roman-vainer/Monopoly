@@ -68,6 +68,9 @@ public class Game {
         int position = currentPlayer.GoTo(steps);
         message = board.Spaces[position].ExecuteAction(currentPlayer);
 
+        int position = currentPlayer.GoTo(dice.Roll());
+        message = board.Spaces[position].ExecuteAction(currentPlayer);
+
 
 
 
