@@ -68,8 +68,11 @@ public class Game {
         int position = currentPlayer.GoTo(steps);
         message = board.Spaces[position].ExecuteAction(currentPlayer);
 
-        int position = currentPlayer.GoTo(dice.Roll());
-        message = board.Spaces[position].ExecuteAction(currentPlayer);
+        int currentIndex = players.IndexOf(currentPlayer);
+        currentPlayer = players[(currentIndex + 1) % players.Count];
+
+       
+      
 
 
 
@@ -85,7 +88,7 @@ public class Game {
 
     public bool IsEnd() {
         int activePlayers = players.Count(p => p.IsActive);
-        var allLaps = players.FirstOrDefault(p => p.StartPassStreak >= 3);
+        var allLaps = players.FirstOrDefault(p => p.Lap >= 3);
         if (activePlayers <= 1 || allLaps != null) {
             return true;
         }

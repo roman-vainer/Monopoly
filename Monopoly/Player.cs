@@ -11,7 +11,7 @@ public class Player {
     public string Name { get; set; }
     public decimal Money { get; set; }
     public int Punkte { get; set; }
-    public bool IstAktiv { get; set; }
+    public bool IsActive { get; set; }
     public int Position { get; private set; }
     public List<EstateSpace> Estate { get; }
     public Color PlayerColor { get; set; }
@@ -23,7 +23,7 @@ public class Player {
         Name = name;
         Money = 1000m;
         Punkte = 0;
-        IstAktiv = true;
+        IsActive = true;
         Position = 0;
 
         Estate = new List<EstateSpace>();
