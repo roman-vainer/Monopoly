@@ -35,9 +35,12 @@ public class Player {
         return Position = (Position + steps) % Size;
     }
 
-    public decimal MoneyChanges(decimal amount) {
-        if (Money + amount < 0) {
-            IstAktiv = false;
+    
+    public decimal MoneyChanges (decimal amount)
+    {
+        if (Money + amount <0)
+        {
+            IsActive = false;
             Money = 0;
             return Money;
         } else {

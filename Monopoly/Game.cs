@@ -34,19 +34,59 @@ public class Game {
         }
     }
 
+
     public void Start() {
-        while (true) {
+        while (!IsEnd()) {
             DrawBoard();
             PlayTurn();
             Console.ReadLine();
         }
+        Player player = DetermineWinner();
+        DrawFinalState(player);
+
     }
 
+    private void DrawFinalState(Player player) {
+        ui.DrawFinalState(player);
+    }
+
+    private Player DetermineWinner() {
+        Player player = null;
+        decimal money = 0;
+        foreach (Player currentPlayer in players) {
+            if (currentPlayer.IsActive && currentPlayer.Money > money) {
+                money = currentPlayer.Money;
+                player = currentPlayer;
+            }
+        }
+        return player;
+    }
+
+
     public void PlayTurn() {
-        int position = currentPlayer.GoTo(dice.Roll());
+        int steps = dice.Roll();
+        int position = currentPlayer.GoTo(steps);
         message = board.Spaces[position].ExecuteAction(currentPlayer);
-        int currentIndex = players.IndexOf(currentPlayer);
-        currentPlayer = players[(currentIndex + 1) % players.Count];
+
+
+
+
+
+
+    }
+    // IsEnd guckt ob das Spiel zu Ende ist.
+    // Konditionen:
+    // - Ein beliebiger Spieler hat 3-mal hintereinander das Startfeld passiert (StartPassStreak >= 3)
+    // - 3 beliebige Spieler haben kein Geld mehr (Money <= 0) oder sind nicht aktiv (IstAktiv == false)
+    // Returned den Gewinner.
+
+    public bool IsEnd() {
+        int activePlayers = players.Count(p => p.IsActive);
+        var allLaps = players.FirstOrDefault(p => p.StartPassStreak >= 3);
+        if (activePlayers <= 1 || allLaps != null) {
+            return true;
+        }
+        return false;
     }
 
     public void DrawBoard() {
