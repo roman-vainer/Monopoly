@@ -18,6 +18,7 @@ public class Player {
     public static int Size { get; set; }
     public int Lap { get; set; } = 0;
 
+
     public Player(string name) {
         Name = name;
         Money = 1000m;

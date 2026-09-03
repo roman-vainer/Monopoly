@@ -14,8 +14,6 @@ public class Game {
     private Player currentPlayer;
     private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
     private string message = "";
-
-    public static int CurrentRound { get; set; }
     SpectreUI ui;
 
 
@@ -49,20 +47,6 @@ public class Game {
         message = board.Spaces[position].ExecuteAction(currentPlayer);
         int currentIndex = players.IndexOf(currentPlayer);
         currentPlayer = players[(currentIndex + 1) % players.Count];
-
-
-        if (position < Size)
-        {
-            CurrentRound = 1;
-        }
-        else if (position < Size * 2)
-        {
-            CurrentRound = 2;
-        }
-        else if (position < Size * 3)
-        {
-            CurrentRound = 3;
-        }
     }
 
     public void DrawBoard() {
