@@ -9,30 +9,7 @@ public class Event
 
     public static string TriggerRandomEvent(Player player)
     {
-        //switch (new Random().Next(1, 6))
-        //{
-        //     case 1:
-        //       return ExecuteGoldGains(player);
-        //    break;
-        //    case 2:
-        //    return ExecuteTaxLoss(player);
-        //    break;
-        //case 3:
-        //    return ExecuteMoveForward(player);
-        //    break;
-        //case 4:
-        //    return ExecuteMoveBackward(player);
-        //    break;
-        //case 5:
-        //    return ExecuteSkipTurn(player);
-        //    break;
-        //case 6:
-        //    return ExecuteNothingHappens(player);
-        //    break;
-        //default:
-        //    Console.WriteLine("No event triggered.");
-        //    break;
-        //}
+        
         return new Random().Next(1, 7) switch
         {
             1 => ExecuteGoldGains(player),

@@ -12,9 +12,9 @@ public class Game {
     private Board board;
     private Dice dice;
     private Player currentPlayer;
-    private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
+    private static readonly Color[] colors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
     private string message = "";
-    SpectreUI ui;
+    private readonly SpectreUI ui;
 
 
     public Game(List<Player> players, int size) {
@@ -22,8 +22,8 @@ public class Game {
         Size = size;
         dice = new Dice();
         board = new Board(size);
-        ui = new SpectreUI();
         Initialization();
+        ui = new SpectreUI(board, players);
 
     }
 
@@ -31,14 +31,27 @@ public class Game {
         currentPlayer = players[new Random().Next(players.Count)];
         for (int i = 0; i < players.Count; i++) {
             players[i].PlayerColor = colors[i];
+            players[i].Token = i switch
+            {
+                0 => "🔴",
+                1 => "🟡",
+                2 => "🟢",
+                3 => "🔵",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 
-
     public void Start() {
+        DrawBoard();
+        Console.ReadLine();
         while (!IsEnd()) {
-            DrawBoard();
+            
             PlayTurn();
+            DrawBoard();
+            Console.ReadLine();
+            ChangePosition();
+            DrawBoard();
             Console.ReadLine();
         }
         Player player = DetermineWinner();
@@ -68,18 +81,16 @@ public class Game {
         int position = currentPlayer.GoTo(steps);
         message = board.Spaces[position].ExecuteAction(currentPlayer);
 
-        int currentIndex = players.IndexOf(currentPlayer);
-        currentPlayer = players[(currentIndex + 1) % players.Count];
-
-       
-      
-
-
-
-
-
+        
 
     }
+
+    private void ChangePosition() {
+        int currentIndex = players.IndexOf(currentPlayer);
+        currentPlayer = players[(currentIndex + 1) % players.Count];
+        message = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
+    }
+
     // IsEnd guckt ob das Spiel zu Ende ist.
     // Konditionen:
     // - Ein beliebiger Spieler hat 3-mal hintereinander das Startfeld passiert (StartPassStreak >= 3)
@@ -96,6 +107,6 @@ public class Game {
     }
 
     public void DrawBoard() {
-        ui.DrawGame(board, players, message, dice.CurrentValue);
+        ui.DrawGame(message, dice.CurrentValue, currentPlayer);
     }
 }

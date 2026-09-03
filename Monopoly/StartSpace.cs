@@ -8,7 +8,7 @@ public class StartSpace : Space
 {
     public StartSpace()
     {
-        Name = this.GetType().Name;
+        Name = "START";
     }
 
     public override string ExecuteAction(Player player)
