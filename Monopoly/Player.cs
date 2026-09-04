@@ -7,44 +7,48 @@ using Spectre.Console;
 
 namespace Monopoly;
 
-public class Player {
+public class Player
+{
     public string Name { get; set; }
     public decimal Money { get; set; }
-    public int Punkte { get; set; }
     public bool IsActive { get; set; }
     public int Position { get; private set; }
     public List<EstateSpace> Estate { get; }
     public Color PlayerColor { get; set; }
-    public string Token {  get; set; }
+    public string Token { get; set; }
     public static int Size { get; set; }
     public int Lap { get; set; } = 0;
     public static int i = 0;
 
 
-    public Player(string name) {
+    public Player(string name)
+    {
         Name = name;
         Money = 1000m;
-        Punkte = 0;
         IsActive = true;
         Position = 0;
         Estate = new List<EstateSpace>();
     }
-    public int GoTo(int steps) {
-        if (Position + steps > Size) {
+    public int GoTo(int steps)
+    {
+        if (Position + steps > Size)
+        {
             Lap++;
         }
         return Position = (Position + steps) % Size;
     }
 
-    
-    public decimal MoneyChanges (decimal amount)
+
+    public decimal MoneyChanges(decimal amount)
     {
-        if (Money + amount <0)
+        if (Money + amount < 0)
         {
             IsActive = false;
-            Money = 0;
+            Token = "";
             return Money;
-        } else {
+        }
+        else
+        {
             Money += amount;
             return Money;
         }

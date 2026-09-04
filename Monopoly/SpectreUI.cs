@@ -8,7 +8,8 @@ using Spectre.Console.Rendering;
 
 namespace Monopoly;
 
-public class SpectreUI : IUserInterface {
+public class SpectreUI : IUserInterface
+{
     private int side;
     private Board board;
     private List<Player> players;
@@ -16,16 +17,19 @@ public class SpectreUI : IUserInterface {
     private int diceValue;
     Player currentPlayer;
 
-    public SpectreUI(Board board, List<Player> players) {
+    public SpectreUI(Board board, List<Player> players)
+    {
         this.board = board;
         this.players = players;
         message = "";
         diceValue = 0;
     }
-    public void DisplayMessage(string message) {
+    public void DisplayMessage(string message)
+    {
     }
 
-    public void DrawGame(string message, int diceValue, Player currentPlayer) {
+    public void DrawGame(string message, int diceValue, Player currentPlayer)
+    {
         this.message = message;
         this.diceValue = diceValue;
         this.currentPlayer = currentPlayer;
@@ -43,46 +47,52 @@ public class SpectreUI : IUserInterface {
         AnsiConsole.Write(mainGrid);
     }
 
-    private Table DrawPlayers() {
+    private Table DrawPlayers()
+    {
         Table tabble = new Table();
         tabble.Title = new TableTitle("[bold]PLAYERS[/]");
         tabble.AddColumn("Player");
         tabble.AddColumn("Money");
         tabble.AddColumn("Position");
         tabble.AddColumn("Lap");
-        //tabble.AddColumn("Estates");
-        foreach (var player in players) {
+        tabble.AddColumn("Estates");
+        foreach (var player in players)
+        {
             string color = player.PlayerColor.ToMarkup();
 
             tabble.AddRow(
                 $"[{color}]{player.Name}[/]",
-                $"{player.Money}",
-                $"{player.Position}",
-                $"{player.Lap}"
-                //$"{player.Estate}"
+                $"[{color}]{player.Money}[/]",
+                $"[{color}]{player.Position}[/]",
+                $"[{color}]{player.Lap}[/]",
+                $"[{color}]{string.Join("\n", player.Estate.Select(e => e.Name))}[/]"
                 );
         }
         tabble.Width = 65;
         return tabble;
     }
 
-    private void DrawTitel() {
+    private void DrawTitel()
+    {
         AnsiConsole.Write(
             new FigletText("MONOPOLY")
             .Centered()
             .Color(Color.Blue));
     }
 
-    private Grid DrawGameboard() {
+    private Grid DrawGameboard()
+    {
 
         side = board.Spaces.Count / 4 + 1;
 
         Grid topGrid = new Grid();
-        for (int i = 0; i < side; i++) {
+        for (int i = 0; i < side; i++)
+        {
             topGrid.AddColumn();
         }
         IRenderable[] topCells = new IRenderable[side];
-        for (int i = 0; i < side; i++) {
+        for (int i = 0; i < side; i++)
+        {
             topCells[i] = CreateSpasePanel(board.Spaces[i], i);
         }
         topGrid.AddRow(topCells);
@@ -92,19 +102,22 @@ public class SpectreUI : IUserInterface {
         Grid rightGrid = new Grid();
         rightGrid.AddColumn();
 
-        for (int i = 1; i < side - 1; i++) {
+        for (int i = 1; i < side - 1; i++)
+        {
             rightGrid.AddRow(CreateSpasePanel(board.Spaces[index], index));
             index++;
         }
 
 
         Grid bottomGrid = new Grid();
-        for (int i = 0; i < side; i++) {
+        for (int i = 0; i < side; i++)
+        {
             bottomGrid.AddColumn();
         }
         IRenderable[] bottomCells = new IRenderable[side];
 
-        for (int i = side - 1; i >= 0; i--) {
+        for (int i = side - 1; i >= 0; i--)
+        {
             bottomCells[i] = CreateSpasePanel(board.Spaces[index], index);
             index++;
         }
@@ -113,7 +126,8 @@ public class SpectreUI : IUserInterface {
         Grid leftGrid = new Grid();
         leftGrid.AddColumn();
 
-        for (int i = board.Spaces.Count - 1; i >= index; i--) {
+        for (int i = board.Spaces.Count - 1; i >= index; i--)
+        {
             leftGrid.AddRow(CreateSpasePanel(board.Spaces[i], i));
         }
 
@@ -138,19 +152,23 @@ public class SpectreUI : IUserInterface {
         return boardGrid;
     }
 
-    private Panel CreateSpasePanel(Space space, int position) {
+    private Panel CreateSpasePanel(Space space, int position)
+    {
 
         string token = CreateTokenPosition(position);
 
         Panel panel;
-        if (space is StartSpace) {
+        if (space is StartSpace)
+        {
             panel = new Panel(
                 Align.Center(
                     new Markup($"[bold green]{space.Name}[/]\n🏁\n" +
                         $"{token}"), VerticalAlignment.Middle
                     ).Height(3)
                 );
-        } else if (space is MoneySpace moneySpace) {
+        }
+        else if (space is MoneySpace moneySpace)
+        {
             panel = new Panel(
                 Align.Center(
                     new Markup(
@@ -159,14 +177,18 @@ public class SpectreUI : IUserInterface {
                         $"{token}"), VerticalAlignment.Middle
                     ).Height(3)
                 );
-        } else if (space is EventSpace) {
+        }
+        else if (space is EventSpace)
+        {
             panel = new Panel(
                  Align.Center(
                       new Markup($"[purple]{space.Name}[/]\n❓\n" +
                          $"{token}"), VerticalAlignment.Middle
                       ).Height(3)
                  );
-        } else if (space is EstateSpace estateSpace) {
+        }
+        else if (space is EstateSpace estateSpace)
+        {
             panel = new Panel(
                 Align.Center(
                     new Markup($"[cyan]{space.Name}[/]\n🏠 " +
@@ -174,7 +196,9 @@ public class SpectreUI : IUserInterface {
                         $"{token}"), VerticalAlignment.Middle
                     ).Height(3)
                 );
-        } else {
+        }
+        else
+        {
             panel = new Panel(space.Name);
         }
         panel.Header = new PanelHeader($"{position + 1}", Justify.Center);
@@ -184,18 +208,22 @@ public class SpectreUI : IUserInterface {
         return panel;
     }
 
-    private string CreateTokenPosition(int position) {
+    private string CreateTokenPosition(int position)
+    {
         string token = "";
 
-        foreach (var player in players) {
-            if (player.Position == position) {
+        foreach (var player in players)
+        {
+            if (player.Position == position)
+            {
                 token += player.Token;
             }
         }
         return token;
     }
 
-    private Panel CreateGameInfo() {
+    private Panel CreateGameInfo()
+    {
         Markup content = new Markup(
             $"Curent Player: {currentPlayer.Token} {currentPlayer.Name}" +
             $"\U0001F3B2 \U0001F3B2 {diceValue}\n\n" +
@@ -208,7 +236,8 @@ public class SpectreUI : IUserInterface {
         return panel;
     }
 
-    internal void DrawFinalState(Player player) {
+    internal void DrawFinalState(Player player)
+    {
         Console.ReadLine();
     }
 }
