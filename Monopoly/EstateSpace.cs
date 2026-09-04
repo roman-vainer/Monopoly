@@ -27,12 +27,12 @@ public class EstateSpace : Space
                 player.MoneyChanges(-Price);
                 owner = player;
                 player.Estate.Add(this);
-                message = $"Du hast sie für {Price} € gekauft.\n" +
-                    $" Du bist jetzt der Besitzer und erhältst Miete von anderen spielern";
+                message += $"Du hast sie für {Price} € gekauft.\n" +
+                    $"Du bist jetzt der Besitzer und erhältst Miete von anderen spielern";
             }
             else
             {
-                message = $"Kannst du aber sie nicht kaufen, weil du nicht genug Geld hast.";
+                message += $"Kannst du aber sie nicht kaufen, weil du nicht genug Geld hast.";
             }
         }
         else
@@ -40,12 +40,12 @@ public class EstateSpace : Space
             if (owner != player)
             {
                 player.MoneyChanges(-RentPrice);
-                message = $"Der Besitzer ist {owner}, daher musst du {RentPrice} € Miete zahlen." +
+                message += $"Der Besitzer ist {owner}, daher musst du {RentPrice} € Miete zahlen." +
                     $"{(!player.IsActive ? "\nDu bist jetzt bankrott und scheidest aus dem Spiel aus" : "")}";
             }
             else
             {
-                message = "Du bist bereits der Besitzer";
+                message += "Du bist bereits der Besitzer";
             }
         }
         return message;

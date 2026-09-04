@@ -9,7 +9,7 @@ public class Game
     private Dice dice;
     private Player currentPlayer;
     private static readonly Color[] colors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
-    private string message = "";
+    private string resultMessage = "";
     private readonly SpectreUI ui;
 
     public Game(List<Player> players, int size)
@@ -42,15 +42,12 @@ public class Game
 
     public void Start()
     {
-        DrawBoard();
-        Console.ReadLine();
+        RefreshGame();
         while (!IsEnd())
         {
             PlayTurn();
-            DrawBoard();
+            RefreshGame();
             ChangePosition();
-            DrawBoard();
-            Console.ReadLine();
         }
         Player player = DetermineWinner();
         DrawFinalState(player);
@@ -78,16 +75,28 @@ public class Game
 
     public void PlayTurn()
     {
+        Console.ReadLine();
         int steps = dice.Roll();
-        int position = currentPlayer.GoTo(steps);
-        message = board.Spaces[position].ExecuteAction(currentPlayer);
+        Console.ReadLine();
+        resultMessage = $"{currentPlayer.Name} würfelt {steps}.";
+        RefreshGame();
+        Thread.Sleep(2000);
+
+        for (int i = 0; i < steps; i++)
+        {
+            currentPlayer.Move(1);
+            RefreshGame();
+            Thread.Sleep(300);
+        }
+        resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
+        RefreshGame();
     }
 
     private void ChangePosition()
     {
         int currentIndex = players.IndexOf(currentPlayer);
         currentPlayer = players[(currentIndex + 1) % players.Count];
-        message = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
+        resultMessage = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
     }
 
     public bool IsEnd()
@@ -101,9 +110,8 @@ public class Game
         return false;
     }
 
-    public void DrawBoard()
+    public void RefreshGame()
     {
-        ui.DrawGame(message, dice.CurrentValue, currentPlayer);
-        Console.ReadLine();
+        ui.DrawGame(resultMessage, dice.CurrentValue, currentPlayer);
     }
 }

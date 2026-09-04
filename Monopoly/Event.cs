@@ -9,7 +9,7 @@ public class Event
 
     public static string TriggerRandomEvent(Player player)
     {
-        
+
         return new Random().Next(1, 7) switch
         {
             1 => ExecuteGoldGains(player),
@@ -47,16 +47,24 @@ public class Event
     }
     private static string ExecuteMoveForward(Player player)
     {
-        int spaces = 3;
-        player.GoTo(spaces);
-        return $"{player.Name} ist {spaces} vorwärts gegangen!";
+        int steps = new Random().Next(1, 6);
+        for (int i = 0; i < steps; i++)
+        {
+            player.Move(1);
+        }
+        return $"{player.Name} ist {steps} vorwärts gegangen!";
     }
+
     private static string ExecuteMoveBackward(Player player)
     {
-        int spaces = 2;
-        player.GoTo(-spaces);
-        return $"{player.Name} ist {spaces} rückwärts gegangen!";
+        int steps = new Random().Next(1, 6);
+        for (int i = 0; i < steps; i++)
+        {
+            player.Move(-1);
+        }
+        return $"{player.Name} ist {steps} rückwärts gegangen!";
     }
+
     private static string ExecuteSkipTurn(Player player)
     {
         return $"{player.Name} setzt einen Zug aus!";
