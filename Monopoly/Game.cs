@@ -40,18 +40,6 @@ public class Game
         }
     }
 
-    //public void Start()
-    //{
-    //    RefreshGame();
-    //    while (!IsEnd())
-    //    {
-    //        PlayTurn();
-    //        ChangePosition();
-    //    }
-    //    Player player = DetermineWinner();
-    //    DrawFinalState(player);
-    //}
-
     public void Start()
     {
         ui.StartLive(() =>
@@ -64,7 +52,6 @@ public class Game
             }
         });
 
-       
         Player player = DetermineWinner();
         DrawFinalState(player);
     }

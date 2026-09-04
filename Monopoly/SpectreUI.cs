@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-
 
 namespace Monopoly;
 
@@ -25,29 +21,6 @@ public class SpectreUI : IUserInterface
         message = "";
         diceValue = 0;
     }
-    public void DisplayMessage(string message)
-    {
-    }
-
-    //public void DrawGame(string message, int diceValue, Player currentPlayer)
-    //{
-    //    this.message = message;
-    //    this.diceValue = diceValue;
-    //    this.currentPlayer = currentPlayer;
-
-    //    Console.OutputEncoding = Encoding.UTF8;
-    //    AnsiConsole.Clear();
-
-    //    DrawTitel();
-    //    Grid gameBoard = DrawGameboard();
-    //    Table playerTable = DrawPlayers();
-
-    //    Grid mainGrid = new Grid();
-    //    mainGrid.AddColumn();
-    //    mainGrid.AddColumn();
-    //    mainGrid.AddRow(gameBoard, playerTable);
-    //    AnsiConsole.Write(mainGrid);
-    //}
 
     public void DrawGame(string message, int diceValue, Player currentPlayer)
     {
@@ -76,8 +49,6 @@ public class SpectreUI : IUserInterface
             });
     }
 
-
-
     private Table DrawPlayers()
     {
         Table tabble = new Table();
@@ -103,14 +74,6 @@ public class SpectreUI : IUserInterface
         return tabble;
     }
 
-    //private void DrawTitel()
-    //{
-    //    AnsiConsole.Write(
-    //        new FigletText("MONOPOLY")
-    //        .Centered()
-    //        .Color(Color.Blue));
-    //}
-
     private Grid CreateScreen()
     {
         FigletText title = new FigletText("MONOPOLY")
@@ -135,7 +98,6 @@ public class SpectreUI : IUserInterface
 
     private Grid DrawGameboard()
     {
-
         side = board.Spaces.Count / 4 + 1;
 
         Grid topGrid = new Grid();
@@ -151,7 +113,6 @@ public class SpectreUI : IUserInterface
         topGrid.AddRow(topCells);
         int index = side;
 
-
         Grid rightGrid = new Grid();
         rightGrid.AddColumn();
 
@@ -160,8 +121,6 @@ public class SpectreUI : IUserInterface
             rightGrid.AddRow(CreateSpasePanel(board.Spaces[index], index));
             index++;
         }
-
-
         Grid bottomGrid = new Grid();
         for (int i = 0; i < side; i++)
         {
@@ -183,7 +142,6 @@ public class SpectreUI : IUserInterface
         {
             leftGrid.AddRow(CreateSpasePanel(board.Spaces[i], i));
         }
-
         Panel gameInfo = CreateGameInfo();
 
         Grid middleGrid = new Grid();
@@ -207,9 +165,7 @@ public class SpectreUI : IUserInterface
 
     private Panel CreateSpasePanel(Space space, int position)
     {
-
         string token = CreateTokenPosition(position);
-
         Panel panel;
         if (space is StartSpace)
         {

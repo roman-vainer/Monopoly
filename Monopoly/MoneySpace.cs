@@ -1,10 +1,7 @@
-﻿using System;
-
-namespace Monopoly;
+﻿namespace Monopoly;
 
 public class MoneySpace : Space
 {
- 
     public int Amount { get; private set; }
 
     public MoneySpace(int amount)
@@ -27,8 +24,7 @@ public class MoneySpace : Space
             return $"{player.Name} befindet sich auf einem ungeraden Feld und zahlt {Amount}!";
         }
     }
-
 }
-  
-       
+
+
 

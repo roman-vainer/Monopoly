@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Spectre.Console;
-
-
+﻿using Spectre.Console;
 
 namespace Monopoly;
 
@@ -20,7 +15,6 @@ public class Player
     public int Lap { get; set; } = 0;
     public static int i = 0;
 
-
     public Player(string name)
     {
         Name = name;
@@ -29,14 +23,6 @@ public class Player
         Position = 0;
         Estate = new List<EstateSpace>();
     }
-    //public int GoTo(int steps)
-    //{
-    //    if (Position + steps > Size)
-    //    {
-    //        Lap++;
-    //    }
-    //    return Position = (Position + steps) % Size;
-    //}
 
     public void Move(int direction)
     {

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Monopoly;
+﻿namespace Monopoly;
 
 public class Event
 {
-
     public static string TriggerRandomEvent(Player player)
     {
-
-        return new Random().Next(1, 7) switch
+        return new Random().Next(1, 8) switch
         {
             1 => ExecuteGoldGains(player),
             2 => ExecuteTaxLoss(player),
@@ -22,14 +16,12 @@ public class Event
             _ => "No event triggered."
         };
     }
-    //Ausführung der einzelnen Event-Logiken, die den Spieler beeinflussen.
     private static string ExecuteGoldGains(Player player)
     {
         decimal goldGained = 200m;
         player.MoneyChanges(goldGained);
         return $"{player.Name} hat {goldGained} Gold erhalten!";
     }
-
 
     private static string ExecuteTaxLoss(Player player)
     {
@@ -76,6 +68,7 @@ public class Event
         player.MoneyChanges(-player.Money);
         return $"{player.Name} ist gestorben und aus dem Spiel ausgeschieden!";
     }
+
     private static string ExecuteNothingHappens(Player player)
     {
         return $"{player.Name} ist auf ein Ereignisloses Feld getreten....";
