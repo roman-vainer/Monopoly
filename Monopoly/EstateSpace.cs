@@ -2,13 +2,14 @@
 
 public class EstateSpace : Space
 {
+    private readonly string[] names = ["House", "Villa", "Plaza", "Tower", "Palace", "Castle", "Hotel"];
     public decimal Price { get; }
     public decimal RentPrice { get; }
     Player? owner;
 
     public EstateSpace()
     {
-        Name = "ESTATE";
+        Name = names[new Random().Next(names.Length)];
         Price = new Random().Next(1, 6) * 100;
         RentPrice = Price / 2;
     }

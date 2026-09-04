@@ -236,7 +236,7 @@ public class SpectreUI : IUserInterface
         Markup content = new Markup(
             $"Curent Player: {currentPlayer.Token} {currentPlayer.Name}" +
             $"\U0001F3B2 \U0001F3B2 {diceValue}\n\n" +
-            $"[bold]Message:[/]{message}"
+            $"[bold]Message:[/]\n{message}"
             );
         Panel panel = new Panel(content);
         panel.Header = new PanelHeader("GAME INFO", Justify.Center);
