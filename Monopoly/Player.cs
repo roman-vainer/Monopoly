@@ -29,15 +29,36 @@ public class Player
         Position = 0;
         Estate = new List<EstateSpace>();
     }
-    public int GoTo(int steps)
+    //public int GoTo(int steps)
+    //{
+    //    if (Position + steps > Size)
+    //    {
+    //        Lap++;
+    //    }
+    //    return Position = (Position + steps) % Size;
+    //}
+
+    public void Move(int direction)
     {
-        if (Position + steps > Size)
+        Position += direction;
+        if (Position >= Size)
         {
+            Position = 0;
             Lap++;
         }
-        return Position = (Position + steps) % Size;
+        if (Position < 0)
+        {
+            if (Lap == 0)
+            {
+                Position = 0;
+            }
+            else
+            {
+                Position = Size - 1;
+                Lap--;
+            }
+        }
     }
-
 
     public decimal MoneyChanges(decimal amount)
     {
