@@ -4,10 +4,10 @@ public class MoneySpace : Space
 {
     public int Amount { get; private set; }
 
-    public MoneySpace(int amount)
+    public MoneySpace()
     {
-        Amount = amount;
-        Name = "MONEY";
+        Amount = new Random().Next(1, 4) * 100;
+        Name = "money";
     }
 
     public override string ExecuteAction(Player player)
