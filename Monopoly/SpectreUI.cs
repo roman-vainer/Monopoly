@@ -10,6 +10,7 @@ namespace Monopoly;
 
 public class SpectreUI : IUserInterface
 {
+    private LiveDisplayContext? liveContext;
     private int side;
     private Board board;
     private List<Player> players;
@@ -28,24 +29,54 @@ public class SpectreUI : IUserInterface
     {
     }
 
+    //public void DrawGame(string message, int diceValue, Player currentPlayer)
+    //{
+    //    this.message = message;
+    //    this.diceValue = diceValue;
+    //    this.currentPlayer = currentPlayer;
+
+    //    Console.OutputEncoding = Encoding.UTF8;
+    //    AnsiConsole.Clear();
+
+    //    DrawTitel();
+    //    Grid gameBoard = DrawGameboard();
+    //    Table playerTable = DrawPlayers();
+
+    //    Grid mainGrid = new Grid();
+    //    mainGrid.AddColumn();
+    //    mainGrid.AddColumn();
+    //    mainGrid.AddRow(gameBoard, playerTable);
+    //    AnsiConsole.Write(mainGrid);
+    //}
+
     public void DrawGame(string message, int diceValue, Player currentPlayer)
     {
         this.message = message;
         this.diceValue = diceValue;
         this.currentPlayer = currentPlayer;
+
+        if (liveContext != null)
+        {
+            liveContext.UpdateTarget(CreateScreen());
+            liveContext.Refresh();
+        }
+    }
+
+    public void StartLive(Action gameAction)
+    {
         Console.OutputEncoding = Encoding.UTF8;
         AnsiConsole.Clear();
-
-        DrawTitel();
-        Grid gameBoard = DrawGameboard();
-        Table playerTable = DrawPlayers();
-
-        Grid mainGrid = new Grid();
-        mainGrid.AddColumn();
-        mainGrid.AddColumn();
-        mainGrid.AddRow(gameBoard, playerTable);
-        AnsiConsole.Write(mainGrid);
+        AnsiConsole.Live(new Text(""))
+            .AutoClear(false)
+            .Start(context =>
+            {
+                liveContext = context;
+                gameAction();
+                liveContext = null;
+            });
     }
+
+
 
     private Table DrawPlayers()
     {
@@ -72,12 +103,34 @@ public class SpectreUI : IUserInterface
         return tabble;
     }
 
-    private void DrawTitel()
+    //private void DrawTitel()
+    //{
+    //    AnsiConsole.Write(
+    //        new FigletText("MONOPOLY")
+    //        .Centered()
+    //        .Color(Color.Blue));
+    //}
+
+    private Grid CreateScreen()
     {
-        AnsiConsole.Write(
-            new FigletText("MONOPOLY")
-            .Centered()
-            .Color(Color.Blue));
+        FigletText title = new FigletText("MONOPOLY")
+        .Centered()
+        .Color(Color.Blue);
+
+        Grid gameboard = DrawGameboard();
+        Table playerTable = DrawPlayers();
+
+        Grid mainGrid = new Grid();
+        mainGrid.AddColumn();
+        mainGrid.AddColumn();
+        mainGrid.AddRow(gameboard, playerTable);
+
+        Grid screen = new Grid();
+        screen.AddColumn();
+        screen.AddRow(title);
+        screen.AddRow(mainGrid);
+
+        return screen;
     }
 
     private Grid DrawGameboard()
