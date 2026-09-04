@@ -40,15 +40,31 @@ public class Game
         }
     }
 
+    //public void Start()
+    //{
+    //    RefreshGame();
+    //    while (!IsEnd())
+    //    {
+    //        PlayTurn();
+    //        ChangePosition();
+    //    }
+    //    Player player = DetermineWinner();
+    //    DrawFinalState(player);
+    //}
+
     public void Start()
     {
-        RefreshGame();
-        while (!IsEnd())
+        ui.StartLive(() =>
         {
-            PlayTurn();
             RefreshGame();
-            ChangePosition();
-        }
+            while (!IsEnd())
+            {
+                PlayTurn();
+                ChangePosition();
+            }
+        });
+
+       
         Player player = DetermineWinner();
         DrawFinalState(player);
     }
@@ -75,9 +91,8 @@ public class Game
 
     public void PlayTurn()
     {
-        Console.ReadLine();
+        Console.ReadKey();
         int steps = dice.Roll();
-        Console.ReadLine();
         resultMessage = $"{currentPlayer.Name} würfelt {steps}.";
         RefreshGame();
         Thread.Sleep(2000);
