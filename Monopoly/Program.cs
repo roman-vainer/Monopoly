@@ -5,7 +5,7 @@ internal class Program
     static void Main(string[] args)
     {
         int size = 28;
-        Player.Size = size;
+        Player.BoardSize = size;
         List<Player> players = CreatePlayers();
         Game game = new Game(players, size);
         game.Start();

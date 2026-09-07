@@ -5,7 +5,7 @@ public class EstateSpace : Space
     private readonly string[] names = ["House", "Villa", "Plaza", "Tower", "Palace", "Castle", "Hotel"];
     public decimal Price { get; }
     public decimal RentPrice { get; }
-    Player? owner;
+    public Player? Owner { get; set; }
 
     public EstateSpace()
     {
@@ -16,12 +16,12 @@ public class EstateSpace : Space
     public override string ExecuteAction(Player player)
     {
         string message = $"\nDu bist auf der Immobilie {Name} gelandet.\n";
-        if (owner == null)
+        if (Owner == null)
         {
             if (player.Money >= Price)
             {
                 player.MoneyChanges(-Price);
-                owner = player;
+                Owner = player;
                 player.Estate.Add(this);
                 message += $"Du hast sie für {Price} € gekauft.\n" +
                     $"Du bist jetzt der Besitzer und erhältst Miete von anderen spielern";
@@ -33,9 +33,9 @@ public class EstateSpace : Space
         }
         else
         {
-            if (owner != player)
+            if (Owner != player)
             {
-                message += $"Der Besitzer ist {owner}, daher musst du {RentPrice} € Miete zahlen.";
+                message += $"Der Besitzer ist {Owner.Name}, daher musst du {RentPrice} € Miete zahlen.";
                 player.MoneyChanges(-RentPrice);
                 if (!player.IsActive)
                 {
