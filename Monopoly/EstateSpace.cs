@@ -15,7 +15,7 @@ public class EstateSpace : Space
     }
     public override string ExecuteAction(Player player)
     {
-        string message = $"Du bist auf der Immobilie {Name} gelandet.\n";
+        string message = $"\nDu bist auf der Immobilie {Name} gelandet.\n";
         if (owner == null)
         {
             if (player.Money >= Price)
@@ -35,9 +35,12 @@ public class EstateSpace : Space
         {
             if (owner != player)
             {
+                message += $"Der Besitzer ist {owner}, daher musst du {RentPrice} € Miete zahlen.";
                 player.MoneyChanges(-RentPrice);
-                message += $"Der Besitzer ist {owner}, daher musst du {RentPrice} € Miete zahlen." +
-                    $"{(!player.IsActive ? "\nDu bist jetzt bankrott und scheidest aus dem Spiel aus" : "")}";
+                if (!player.IsActive)
+                {
+                    message += $"{player.Name}\nist jetzt bankrott und scheidest aus dem Spiel aus";
+                }
             }
             else
             {
