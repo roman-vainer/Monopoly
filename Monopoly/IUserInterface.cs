@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Monopoly; 
 
-namespace Monopoly; 
 public interface IUserInterface {
-    public void DisplayMessage(string message);
 
-    public void DrawGame(Board board, List<Player> players, string message, int diceValue);
+    public void DrawGame(string message, int diceValue, Player player);
 }
+ 

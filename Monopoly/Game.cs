@@ -1,9 +1,4 @@
 ﻿using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-
 namespace Monopoly;
 
 public class Game
@@ -13,10 +8,9 @@ public class Game
     private Board board;
     private Dice dice;
     private Player currentPlayer;
-    private static readonly Color[] colors = [Color.Blue, Color.Red, Color.Yellow, Color.Green];
-    private string message = "";
-    SpectreUI ui;
-
+    private static readonly Color[] colors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
+    private string resultMessage = "";
+    private readonly SpectreUI ui;
 
     public Game(List<Player> players, int size)
     {
@@ -24,8 +18,8 @@ public class Game
         Size = size;
         dice = new Dice();
         board = new Board(size);
-        ui = new SpectreUI();
         Initialization();
+        ui = new SpectreUI(board, players);
 
     }
 
@@ -35,18 +29,30 @@ public class Game
         for (int i = 0; i < players.Count; i++)
         {
             players[i].PlayerColor = colors[i];
+            players[i].Token = i switch
+            {
+                0 => "🔴",
+                1 => "🟡",
+                2 => "🟢",
+                3 => "🔵",
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 
-
     public void Start()
     {
-        while (!IsEnd())
+        ui.StartLive(() =>
         {
-            DrawBoard();
-            PlayTurn();
-        }
-        Player player =DetermineWinner();
+            RefreshGame();
+            while (!IsEnd())
+            {
+                PlayTurn();
+                ChangePosition();
+            }
+        });
+
+        Player player = DetermineWinner();
         DrawFinalState(player);
     }
 
@@ -57,10 +63,12 @@ public class Game
 
     private Player DetermineWinner()
     {
-        Player player= null;
+        Player player = null;
         decimal money = 0;
-        foreach(Player currentPlayer in players) {
-            if (currentPlayer.IsActive && currentPlayer.Money > money) {
+        foreach (Player currentPlayer in players)
+        {
+            if (currentPlayer.IsActive && currentPlayer.Money > money)
+            {
                 money = currentPlayer.Money;
                 player = currentPlayer;
             }
@@ -68,29 +76,59 @@ public class Game
         return player;
     }
 
-
     public void PlayTurn()
     {
+        Console.ReadKey();
         int steps = dice.Roll();
-        int position = currentPlayer.GoTo(steps);
-        message = board.Spaces[position].ExecuteAction(currentPlayer);
-
-       
-       
-       
-
-       
+        resultMessage = $"{currentPlayer.Name} würfelt {steps}.";
+        RefreshGame();
+        Thread.Sleep(2000);
+        for (int i = 0; i < steps; i++)
+        {
+            currentPlayer.Move(1);
+            RefreshGame();
+            Thread.Sleep(300);
+            if(currentPlayer.Position == 0 && i != steps - 1)
+            {
+                Thread.Sleep(2000);
+                resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
+            }
+        }
+        int endPosition = currentPlayer.Position;
+        resultMessage = board.Spaces[endPosition].ExecuteAction(currentPlayer);
+        RefreshGame();
+        if(endPosition != currentPlayer.Position)
+        {
+            Thread.Sleep(2000);
+            resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
+            RefreshGame();
+        }
+        return player;
     }
-    // IsEnd guckt ob das Spiel zu Ende ist.
-    // Konditionen:
-    // - Ein beliebiger Spieler hat 3-mal hintereinander das Startfeld passiert (StartPassStreak >= 3)
-    // - 3 beliebige Spieler haben kein Geld mehr (Money <= 0) oder sind nicht aktiv (IstAktiv == false)
-    // Returned den Gewinner.
+
+    private void ChangePosition()
+    {
+        int currentIndex = players.IndexOf(currentPlayer);
+        currentPlayer = players[(currentIndex + 1) % players.Count];
+        if (!currentPlayer.IsActive)
+        {
+            currentIndex = players.IndexOf(currentPlayer);
+            currentPlayer = players[(currentIndex + 1) % players.Count];
+        }
+
+        if (currentPlayer.SkipTurn)
+        {
+            currentPlayer.SkipTurn = false;
+            currentIndex = players.IndexOf(currentPlayer);
+            currentPlayer = players[(currentIndex + 1) % players.Count];
+        }
+        resultMessage = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
+    }
 
     public bool IsEnd()
     {
         int activePlayers = players.Count(p => p.IsActive);
-        var allLaps = players.FirstOrDefault(p => p.StartPassStreak >= 3);
+        var allLaps = players.FirstOrDefault(p => p.Lap >= 3);
         if (activePlayers <= 1 || allLaps != null)
         {
             return true;
@@ -98,9 +136,9 @@ public class Game
         return false;
     }
 
-    public void DrawBoard()
+    public void RefreshGame()
     {
-        ui.DrawGame(board, players, message, dice.CurrentValue);
+        ui.DrawGame(resultMessage, dice.CurrentValue, currentPlayer);
     }
 
 }
