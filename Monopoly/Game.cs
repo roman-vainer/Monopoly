@@ -83,22 +83,38 @@ public class Game
         resultMessage = $"{currentPlayer.Name} würfelt {steps}.";
         RefreshGame();
         Thread.Sleep(2000);
-
         for (int i = 0; i < steps; i++)
         {
             currentPlayer.Move(1);
             RefreshGame();
             Thread.Sleep(300);
+            if(currentPlayer.Position == 0 && i != steps - 1)
+            {
+                Thread.Sleep(2000);
+                resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
+            }
         }
-        resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
+        int endPosition = currentPlayer.Position;
+        resultMessage = board.Spaces[endPosition].ExecuteAction(currentPlayer);
         RefreshGame();
+        if(endPosition != currentPlayer.Position)
+        {
+            Thread.Sleep(2000);
+            resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
+            RefreshGame();
+        }
     }
 
     private void ChangePosition()
     {
         int currentIndex = players.IndexOf(currentPlayer);
         currentPlayer = players[(currentIndex + 1) % players.Count];
-        
+        if (!currentPlayer.IsActive)
+        {
+            currentIndex = players.IndexOf(currentPlayer);
+            currentPlayer = players[(currentIndex + 1) % players.Count];
+        }
+
         if (currentPlayer.SkipTurn)
         {
             currentPlayer.SkipTurn = false;
