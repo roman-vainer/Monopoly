@@ -12,7 +12,7 @@ public class Player
     public Color PlayerColor { get; set; }
     public string Token { get; set; }
     public static int Size { get; set; }
-    public int Lap { get; set; } = 0;
+    public int Lap { get; set; }
     public static int i = 0;
     public bool SkipTurn { get; set; }
 
@@ -23,6 +23,7 @@ public class Player
         IsActive = true;
         Position = 0;
         SkipTurn = false;
+        Lap = 1;
         Estate = new List<EstateSpace>();
     }
 

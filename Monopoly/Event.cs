@@ -37,22 +37,26 @@ public class Event
     }
     private static string ExecuteMoveForward(Player player)
     {
+        string message = $"\n===Vorwärtsbewegung===\n";
         int steps = new Random().Next(1, 6);
         for (int i = 0; i < steps; i++)
         {
             player.Move(1);
         }
-        return $"\n===Vorwärtsbewegung===\n{player.Name} ist {steps} vorwärts gegangen!";
+        message += $"{player.Name} ist {steps} vorwärts gegangen!";
+        return message ;
     }
 
     private static string ExecuteMoveBackward(Player player)
     {
+        string message = $"\n===Vorwärtsbewegung===\n";
         int steps = new Random().Next(1, 6);
         for (int i = 0; i < steps; i++)
         {
             player.Move(-1);
         }
-        return $"\n===Rückwärtsbewegung===\n{player.Name} ist {steps} rückwärts gegangen!";
+        message += $"{player.Name} ist {steps} rückwärts gegangen!";
+        return message;
     }
 
     private static string ExecuteSkipTurn(Player player)
@@ -64,6 +68,6 @@ public class Event
     private static string ExecuteDeath(Player player)
     {
         player.MoneyChanges(-player.Money);
-        return $"{player.Name} ist gestorben und aus dem Spiel ausgeschieden!";
+        return $"\n===Getötet===\n{player.Name} wurde von der Konkurrenz liquidiert!";
     }
 }
