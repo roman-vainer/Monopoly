@@ -5,7 +5,7 @@ public class Dice
     public int CurrentValue { get; private set; }
     public int Roll()
     {
-        CurrentValue = new Random().Next(1, 20);
+        CurrentValue = new Random().Next(1, 7);
         return CurrentValue;
     }
 }
