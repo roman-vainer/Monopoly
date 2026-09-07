@@ -256,7 +256,7 @@ public class SpectreUI : IUserInterface
         return panel;
     }
 
-    internal void DrawFinalState(Player winner)
+    public void DrawFinalState(Player winner)
     {
         AnsiConsole.Clear();
 

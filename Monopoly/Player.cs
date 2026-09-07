@@ -11,7 +11,7 @@ public class Player
     public List<EstateSpace> Estate { get;}
     public Color PlayerColor { get; set; }
     public string Token { get; set; }
-    public static int size { get; set; }
+    public static int BoardSize { get; set; }
     public int Lap { get; private set; }
     public bool SkipTurn { get; set; }
 
@@ -30,7 +30,7 @@ public class Player
     public void Move(int direction)
     {
         Position += direction;
-        if (Position >= size)
+        if (Position >= BoardSize)
         {
             Position = 0;
             Lap++;
@@ -43,7 +43,7 @@ public class Player
             }
             else
             {
-                Position = size - 1;
+                Position = BoardSize - 1;
                 Lap--;
             }
         }

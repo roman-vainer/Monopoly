@@ -9,15 +9,15 @@ public class Game
     private static readonly Color[] colors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
     private Player currentPlayer;
     private string resultMessage = "";
-    private readonly SpectreUI ui;
+    private readonly IUserInterface ui;
 
     public Game(List<Player> players, int size)
     {
         this.players = players;
         dice = new Dice();
         board = new Board(size);
-        Initialization();
         ui = new SpectreUI(board, players);
+        Initialization();
 
     }
 
