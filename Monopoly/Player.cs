@@ -8,7 +8,7 @@ public class Player
     public decimal Money { get; set; }
     public bool IsActive { get; set; }
     public int Position { get; private set; }
-    public List<EstateSpace> Estate { get; }
+    public List<EstateSpace> Estate { get; set; }
     public Color PlayerColor { get; set; }
     public string Token { get; set; }
     public static int Size { get; set; }
@@ -54,7 +54,11 @@ public class Player
         if (Money + amount <= 0)
         {
             IsActive = false;
+            Money = 0;
             Token = "";
+            Estate.Clear();
+            Position = 0;
+            Lap = 0;
             return 0;
         }
         else

@@ -256,8 +256,94 @@ public class SpectreUI : IUserInterface
         return panel;
     }
 
-    internal void DrawFinalState(Player player)
+    internal void DrawFinalState(Player winner)
     {
-        Console.ReadLine();
+        AnsiConsole.Clear();
+
+        FigletText gameOver = new FigletText("GAME OVER")
+            .Centered()
+            .Color(Color.Red);
+
+        AnsiConsole.Write(gameOver);
+
+        string winnerColor = winner.PlayerColor.ToMarkup();
+
+        Panel winnerPanel = new Panel(
+            Align.Center(
+                new Markup(
+                    $"[bold yellow]WINNER[/]\n\n" +
+                    $"[bold {winnerColor}]{Markup.Escape(winner.Name)}[/]\n\n" +
+                    $"[bold]Money:[/] {winner.Money:F2} €\n" +
+                    $"[bold]Laps:[/] {winner.Lap}\n" +
+                    $"[bold]Estates:[/] {winner.Estate.Count}"
+                )
+            )
+        );
+
+        winnerPanel.Header = new PanelHeader(" CHAMPION ", Justify.Center);
+        winnerPanel.Border = BoxBorder.Double;
+        winnerPanel.Padding = new Padding(4, 1);
+
+        AnsiConsole.Write(Align.Center(winnerPanel));
+
+        AnsiConsole.WriteLine();
+
+        Table finalTable = new Table();
+
+        finalTable.Title = new TableTitle("[bold]FINAL STANDINGS[/]");
+        finalTable.Border = TableBorder.Rounded;
+
+        finalTable.AddColumn("Place");
+        finalTable.AddColumn("Player");
+        finalTable.AddColumn("Money");
+        finalTable.AddColumn("Laps");
+        finalTable.AddColumn("Estates");
+        finalTable.AddColumn("Status");
+
+        List<Player> ranking = players
+            .OrderByDescending(p => p == winner)
+            .ThenByDescending(p => p.Money)
+            .ToList();
+
+        for (int i = 0; i < ranking.Count; i++)
+        {
+            Player player = ranking[i];
+
+            string color = player.PlayerColor.ToMarkup();
+
+            string status;
+
+            if (player == winner)
+            {
+                status = "[bold yellow]WINNER[/]";
+            }
+            else if (!player.IsActive)
+            {
+                status = "[red]OUT[/]";
+            }
+            else
+            {
+                status = "[green]ACTIVE[/]";
+            }
+
+            finalTable.AddRow(
+                $"{i + 1}.",
+                $"[{color}]{Markup.Escape(player.Name)}[/]",
+                $"{player.Money:F2} €",
+                player.Lap.ToString(),
+                player.Estate.Count.ToString(),
+                status
+            );
+        }
+
+        AnsiConsole.Write(Align.Center(finalTable));
+
+        AnsiConsole.WriteLine();
+        AnsiConsole.MarkupLine(
+            "[grey]Press any key to exit...[/]"
+        );
+
+        Console.ReadKey(true);
     }
 }
+
