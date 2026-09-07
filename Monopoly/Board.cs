@@ -9,7 +9,6 @@ public class Board
     {
         this.size = size;
         Spaces = CreateSpaces();
-
     }
 
     private List<Space> CreateSpaces()

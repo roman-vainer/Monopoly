@@ -4,16 +4,15 @@ namespace Monopoly;
 
 public class Player
 {
-    public string Name { get; set; }
-    public decimal Money { get; set; }
+    public string Name { get; }
+    public decimal Money { get; private set; }
     public bool IsActive { get; set; }
     public int Position { get; private set; }
-    public List<EstateSpace> Estate { get; set; }
+    public List<EstateSpace> Estate { get;}
     public Color PlayerColor { get; set; }
     public string Token { get; set; }
-    public static int Size { get; set; }
-    public int Lap { get; set; }
-    public static int i = 0;
+    public static int size { get; set; }
+    public int Lap { get; private set; }
     public bool SkipTurn { get; set; }
 
     public Player(string name)
@@ -25,12 +24,13 @@ public class Player
         SkipTurn = false;
         Lap = 1;
         Estate = new List<EstateSpace>();
+        Token = "";
     }
 
     public void Move(int direction)
     {
         Position += direction;
-        if (Position >= Size)
+        if (Position >= size)
         {
             Position = 0;
             Lap++;
@@ -43,7 +43,7 @@ public class Player
             }
             else
             {
-                Position = Size - 1;
+                Position = size - 1;
                 Lap--;
             }
         }

@@ -3,19 +3,17 @@ namespace Monopoly;
 
 public class Game
 {
-    public int Size { get; }
-    public List<Player> players;
-    private Board board;
-    private Dice dice;
-    private Player currentPlayer;
+    private List<Player> players;
+    private readonly Board board;
+    private readonly Dice dice;
     private static readonly Color[] colors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
+    private Player currentPlayer;
     private string resultMessage = "";
     private readonly SpectreUI ui;
 
     public Game(List<Player> players, int size)
     {
         this.players = players;
-        Size = size;
         dice = new Dice();
         board = new Board(size);
         Initialization();
@@ -56,25 +54,7 @@ public class Game
         DrawFinalState(player);
     }
 
-    private void DrawFinalState(Player player)
-    {
-        ui.DrawFinalState(player);
-    }
 
-    private Player DetermineWinner()
-    {
-        Player player = null;
-        decimal money = 0;
-        foreach (Player currentPlayer in players)
-        {
-            if (currentPlayer.IsActive && currentPlayer.Money > money)
-            {
-                money = currentPlayer.Money;
-                player = currentPlayer;
-            }
-        }
-        return player;
-    }
 
     public void PlayTurn()
     {
@@ -124,7 +104,7 @@ public class Game
         resultMessage = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
     }
 
-    public bool IsEnd()
+    private bool IsEnd()
     {
         int activePlayers = players.Count(p => p.IsActive);
         var allLaps = players.FirstOrDefault(p => p.Lap >= 3);
@@ -135,8 +115,26 @@ public class Game
         return false;
     }
 
-    public void RefreshGame()
+    private Player DetermineWinner()
+    {
+        Player player = null;
+        decimal money = 0;
+        foreach (Player currentPlayer in players)
+        {
+            if (currentPlayer.IsActive && currentPlayer.Money > money)
+            {
+                money = currentPlayer.Money;
+                player = currentPlayer;
+            }
+        }
+        return player;
+    }
+    private void RefreshGame()
     {
         ui.DrawGame(resultMessage, dice.CurrentValue, currentPlayer);
+    }
+    private void DrawFinalState(Player player)
+    {
+        ui.DrawFinalState(player);
     }
 }
