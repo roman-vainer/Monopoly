@@ -14,6 +14,7 @@ public class Player
     public static int Size { get; set; }
     public int Lap { get; set; } = 0;
     public static int i = 0;
+    public bool SkipTurn { get; set; }
 
     public Player(string name)
     {
@@ -21,6 +22,7 @@ public class Player
         Money = 1000m;
         IsActive = true;
         Position = 0;
+        SkipTurn = false;
         Estate = new List<EstateSpace>();
     }
 
@@ -48,11 +50,11 @@ public class Player
 
     public decimal MoneyChanges(decimal amount)
     {
-        if (Money + amount < 0)
+        if (Money + amount <= 0)
         {
             IsActive = false;
             Token = "";
-            return Money;
+            return 0;
         }
         else
         {

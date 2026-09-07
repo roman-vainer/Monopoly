@@ -4,37 +4,35 @@ public class Event
 {
     public static string TriggerRandomEvent(Player player)
     {
-        return new Random().Next(1, 8) switch
+        return new Random().Next(1, 7) switch
         {
             1 => ExecuteGoldGains(player),
             2 => ExecuteTaxLoss(player),
             3 => ExecuteMoveForward(player),
             4 => ExecuteMoveBackward(player),
             5 => ExecuteSkipTurn(player),
-            6 => ExecuteNothingHappens(player),
-            7 => ExecuteDeath(player),
+            6 => ExecuteDeath(player),
             _ => "No event triggered."
         };
     }
     private static string ExecuteGoldGains(Player player)
     {
-        decimal goldGained = 200m;
-        player.MoneyChanges(goldGained);
-        return $"{player.Name} hat {goldGained} Gold erhalten!";
+        decimal money = player.Money / 3;
+        player.MoneyChanges(money);
+        return $"\n===Goldgewinn===\n: {player.Name} gewinnt {money:F2} €!";
     }
 
     private static string ExecuteTaxLoss(Player player)
     {
-        decimal taxLoss = 100m;
+        decimal taxLoss = player.Money / 3;
         decimal money = player.MoneyChanges(-taxLoss);
-        if (money <= 0)
+        if (money == 0)
         {
-            return $"{player.Name} ist Bankrott gegangen!";
+            return $"\n===Steuerzahlung===\n{player.Name} muss {taxLoss:F2} € zahlen.\nNicht genug Geld! {player.Name} ist Bankrott";
         }
         else
         {
-            player.MoneyChanges(-taxLoss);
-            return $"{player.Name} hat {taxLoss} Gold verloren!";
+            return $"===Steuerzahlung===\n{player.Name} zahlt {taxLoss:F2} € Steuern";
         }
     }
     private static string ExecuteMoveForward(Player player)
@@ -44,7 +42,7 @@ public class Event
         {
             player.Move(1);
         }
-        return $"{player.Name} ist {steps} vorwärts gegangen!";
+        return $"\n===Vorwärtsbewegung===\n{player.Name} ist {steps} vorwärts gegangen!";
     }
 
     private static string ExecuteMoveBackward(Player player)
@@ -54,23 +52,18 @@ public class Event
         {
             player.Move(-1);
         }
-        return $"{player.Name} ist {steps} rückwärts gegangen!";
+        return $"\n===Rückwärtsbewegung===\n{player.Name} ist {steps} rückwärts gegangen!";
     }
 
     private static string ExecuteSkipTurn(Player player)
     {
-        return $"{player.Name} setzt einen Zug aus!";
+        player.SkipTurn = true;
+        return $"\n===Runde Aussetzen===\n{player.Name} setzt einen Zug aus!";
     }
 
     private static string ExecuteDeath(Player player)
     {
         player.MoneyChanges(-player.Money);
-        player.IsActive = false;
         return $"{player.Name} ist gestorben und aus dem Spiel ausgeschieden!";
-    }
-
-    private static string ExecuteNothingHappens(Player player)
-    {
-        return $"{player.Name} ist auf ein Ereignisloses Feld getreten....";
     }
 }

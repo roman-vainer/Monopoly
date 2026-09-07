@@ -18,13 +18,14 @@ public class Board
         Random random = new Random();
         for (int i = 0; i < size - 1; i++)
         {
-            int rdm = random.Next(1, 4);
+            int rdm = random.Next(1, 5);
 
             spaces.Add(rdm switch
             {
                 1 => new EventSpace(),
                 2 => new MoneySpace(),
                 3 => new EstateSpace(),
+                4 => new TaxSpace(),
                 _ => throw new Exception()
             });
         }

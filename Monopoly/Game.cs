@@ -98,6 +98,13 @@ public class Game
     {
         int currentIndex = players.IndexOf(currentPlayer);
         currentPlayer = players[(currentIndex + 1) % players.Count];
+        
+        if (currentPlayer.SkipTurn)
+        {
+            currentPlayer.SkipTurn = false;
+            currentIndex = players.IndexOf(currentPlayer);
+            currentPlayer = players[(currentIndex + 1) % players.Count];
+        }
         resultMessage = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
     }
 
