@@ -8,7 +8,8 @@ public class EventSpace : Space
     }
     public override string ExecuteAction(Player player)
     {
-
-        return Event.TriggerRandomEvent(player);
+        string resultMessage = $"Der Spieler {player.Name} landet auf einem Zufallsereignisfeld";
+        resultMessage += Event.TriggerRandomEvent(player);
+        return resultMessage;
     }
 }

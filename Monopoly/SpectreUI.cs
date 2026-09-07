@@ -64,7 +64,7 @@ public class SpectreUI : IUserInterface
 
             tabble.AddRow(
                 $"[{color}]{player.Name}[/]",
-                $"[{color}]{player.Money}[/]",
+                $"[{color}]{player.Money:F2}[/]",
                 $"[{color}]{player.Position}[/]",
                 $"[{color}]{player.Lap}[/]",
                 $"[{color}]{string.Join("\n", player.Estate.Select(e => e.Name))}[/]"
@@ -171,7 +171,7 @@ public class SpectreUI : IUserInterface
         {
             panel = new Panel(
                 Align.Center(
-                    new Markup($"[bold green]{space.Name}[/]\n🏁\n" +
+                    new Markup($"[bold yellow]{space.Name}[/]\n🏁\n" +
                         $"{token}"), VerticalAlignment.Middle
                     ).Height(3)
                 );
@@ -181,8 +181,19 @@ public class SpectreUI : IUserInterface
             panel = new Panel(
                 Align.Center(
                     new Markup(
-                        $"[yellow]{space.Name}[/]\n💰 " +
+                        $"[green]{space.Name}[/]\n💰 " +
                         $"{moneySpace.Amount} €\n" +
+                        $"{token}"), VerticalAlignment.Middle
+                    ).Height(3)
+                );
+        }
+        else if (space is TaxSpace taxSpace)
+        {
+            panel = new Panel(
+                Align.Center(
+                    new Markup(
+                        $"[red]{space.Name}[/]\n💸 " +
+                        $"{taxSpace.Amount} €\n" +
                         $"{token}"), VerticalAlignment.Middle
                     ).Height(3)
                 );
