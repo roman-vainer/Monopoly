@@ -6,14 +6,26 @@ public class TaxSpace : Space
 
     public TaxSpace()
     {
-        Amount = - new Random().Next(1, 4) * 100;
+        Amount = Random.Shared.Next(1, 4) * 100;
         Name = "Tax";
     }
 
     public override string ExecuteAction(Player player)
     {
-            player.MoneyChanges(Amount);
-            return $"{player.Name} Der Spieler landet auf einem Tax-Feld und zahlt {Amount} €";
+        if (player.Money < Amount)
+        {
+            player.MoneyChanges(-Amount);
+            return
+            $"\n=== STEUERZAHLUNG ===\n" +
+            $"{player.Name} muss {Amount:F2} € Steuern zahlen.\n" +
+            $"Das Guthaben reicht nicht aus.\n" +
+            $"{player.Name} ist bankrott und scheidet aus dem Spiel aus.";
+        }
+        player.MoneyChanges(-Amount);
+        return
+            $"\n=== STEUERZAHLUNG ===\n" +
+            $"{player.Name} muss {Amount:F2} € Steuern zahlen.\n" +
+            $" Restguthaben: {player.Money} €";
     }
 }
 

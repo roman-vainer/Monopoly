@@ -6,7 +6,7 @@ public class MoneySpace : Space
 
     public MoneySpace()
     {
-        Amount = new Random().Next(1, 4) * 100;
+        Amount = Random.Shared.Next(1, 4) * 100;
         Name = "Money";
     }
 

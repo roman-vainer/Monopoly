@@ -14,12 +14,9 @@ public class Board
     private List<Space> CreateSpaces()
     {
         var spaces = new List<Space>();
-        Random random = new Random();
         for (int i = 0; i < size - 1; i++)
         {
-            int rdm = random.Next(1, 5);
-
-            spaces.Add(rdm switch
+            spaces.Add(Random.Shared.Next(1, 5) switch
             {
                 1 => new EventSpace(),
                 2 => new MoneySpace(),
