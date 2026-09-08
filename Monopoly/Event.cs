@@ -25,8 +25,9 @@ public class Event
     private static string ExecuteTaxLoss(Player player)
     {
         decimal taxLoss = player.Money / 3;
-        decimal money = player.MoneyChanges(-taxLoss);
-        if (money == 0)
+        player.MoneyChanges(-taxLoss);
+        
+        if (!player.IsActive)
         {
             return $"\n===Steuerzahlung===\n{player.Name} muss {taxLoss:F2} € zahlen.\nNicht genug Geld! {player.Name} ist Bankrott";
         }
