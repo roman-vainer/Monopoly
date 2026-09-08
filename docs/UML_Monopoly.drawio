@@ -49,7 +49,7 @@
             <mxRectangle height="30" width="70" x="50" y="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-11" parent="RugDasKqpK4pOKqBZo1d-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;font-size: 9pt; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font face=&quot;Helvetica&quot;&gt;+ Name: string {get; #set;}&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="RugDasKqpK4pOKqBZo1d-11" parent="RugDasKqpK4pOKqBZo1d-10" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;font-size: 9pt; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font face=&quot;Helvetica&quot;&gt;+ Name: string {get; protected set;}&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="32" width="230" y="40" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-12" parent="RugDasKqpK4pOKqBZo1d-10" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
@@ -105,7 +105,7 @@
             <mxRectangle height="30" width="70" x="50" y="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-32" parent="RugDasKqpK4pOKqBZo1d-31" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- names: string[]&lt;/div&gt;&lt;div&gt;+ Price: decimal&lt;/div&gt;&lt;div&gt;+ Rentprice: decimal&lt;/div&gt;&lt;div&gt;+ Owner: Player {get; set;}&lt;/div&gt;" vertex="1">
+        <mxCell id="RugDasKqpK4pOKqBZo1d-32" parent="RugDasKqpK4pOKqBZo1d-31" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- names: string[]&lt;/div&gt;&lt;div&gt;+ Price: decimal {get;}&lt;/div&gt;&lt;div&gt;+ Rentprice: decimal {get;}&lt;/div&gt;&lt;div&gt;+ Owner: Player {get; set;}&lt;/div&gt;" vertex="1">
           <mxGeometry height="70" width="180" y="40" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-33" parent="RugDasKqpK4pOKqBZo1d-31" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
@@ -124,18 +124,18 @@
           <mxGeometry height="22" width="180" y="118" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-35" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Dice" vertex="1">
-          <mxGeometry height="78" width="180" x="915" y="40" as="geometry">
+          <mxGeometry height="78" width="210" x="915" y="40" as="geometry">
             <mxRectangle height="30" width="70" x="50" y="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-36" parent="RugDasKqpK4pOKqBZo1d-35" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;font-size: 9pt; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font face=&quot;Helvetica&quot;&gt;+ CurrentValue: int {get; - set;}&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="22" width="180" y="26" as="geometry" />
+        <mxCell id="RugDasKqpK4pOKqBZo1d-36" parent="RugDasKqpK4pOKqBZo1d-35" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;font-size: 9pt; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font face=&quot;Helvetica&quot;&gt;+ CurrentValue: int {get; private set;}&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="22" width="210" y="26" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-37" parent="RugDasKqpK4pOKqBZo1d-35" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="180" y="48" as="geometry" />
+          <mxGeometry height="8" width="210" y="48" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-38" parent="RugDasKqpK4pOKqBZo1d-35" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;font face=&quot;Helvetica&quot;&gt;+ Roll(): int&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-family: &amp;quot;Cascadia Mono&amp;quot;;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="22" width="180" y="56" as="geometry" />
+          <mxGeometry height="22" width="210" y="56" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-39" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;StartSpace&lt;/div&gt;" vertex="1">
           <mxGeometry height="96" width="180" x="480" y="420" as="geometry">
@@ -152,21 +152,21 @@
           <mxGeometry height="26" width="180" y="70" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-43" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Player" vertex="1">
-          <mxGeometry height="240" width="200" x="651" y="90" as="geometry">
+          <mxGeometry height="249" width="200" x="651" y="79" as="geometry">
             <mxRectangle height="30" width="70" x="50" y="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-44" parent="RugDasKqpK4pOKqBZo1d-43" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;font-size: 9pt; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font face=&quot;Helvetica&quot;&gt;+ Name: string {get}&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;+ Money: decimal {get; - set;}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;+ Position: int {get; - set;}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;+ IsActive: bool {get; set;}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ PlayerColor: Color {get; set}&lt;/div&gt;&lt;div&gt;+ Token: string {get; set;}&lt;/div&gt;&lt;div&gt;+ Lap: int {get; - set;}&lt;/div&gt;&lt;div&gt;+ SkipTurn: bool {get; set;}&lt;/div&gt;&lt;div&gt;+ BoardSize: int&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;{static}&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;{get; set}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ Estate: List&amp;lt;EstateSpace&amp;gt; {get}&lt;/div&gt;" vertex="1">
+        <mxCell id="RugDasKqpK4pOKqBZo1d-44" parent="RugDasKqpK4pOKqBZo1d-43" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;font-size: 9pt; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;font face=&quot;Helvetica&quot;&gt;+ Name: string {get}&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ Estate: List&amp;lt;EstateSpace&amp;gt; {get}&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;+ Money: decimal {get; private set;}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;+ Position: int {get; private set;}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 9pt;&quot;&gt;+ IsActive: bool {get; private set;}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ Lap: int {get; private set;}&lt;/div&gt;&lt;div&gt;+ PlayerColor: Color {get; set}&lt;/div&gt;&lt;div&gt;+ Token: string {get; set;}&lt;/div&gt;&lt;div&gt;+ SkipTurn: bool {get; set;}&lt;/div&gt;&lt;div&gt;+ BoardSize: int&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;{static}&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;{get; set}&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="162" width="200" y="26" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-45" parent="RugDasKqpK4pOKqBZo1d-43" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="200" y="188" as="geometry" />
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-46" parent="RugDasKqpK4pOKqBZo1d-43" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ Move(direction: int): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ MoneyChange(decimal): decimal&lt;/div&gt;" vertex="1">
-          <mxGeometry height="44" width="200" y="196" as="geometry" />
+        <mxCell id="RugDasKqpK4pOKqBZo1d-46" parent="RugDasKqpK4pOKqBZo1d-43" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ Move(direction: int): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ MoneyChange(decimal): decimal&lt;/div&gt;&lt;div&gt;- MakeBankrupt(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="53" width="200" y="196" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-52" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&amp;lt;&amp;lt;intreface&amp;gt;&amp;gt;&lt;br&gt;IUserInterface" vertex="1">
-          <mxGeometry height="132" width="210" x="30" y="610" as="geometry" />
+          <mxGeometry height="140" width="210" x="30" y="610" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-53" parent="RugDasKqpK4pOKqBZo1d-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="22" width="210" y="40" as="geometry" />
@@ -180,11 +180,11 @@
             <mxPoint x="210" y="70" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-55" parent="RugDasKqpK4pOKqBZo1d-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ SatrLive(Action): void&lt;/div&gt;+ DrawGame(string, int, Player): void&lt;div&gt;+ DrawFinalState(Player): void&lt;/div&gt;" vertex="1">
-          <mxGeometry height="62" width="210" y="70" as="geometry" />
+        <mxCell id="RugDasKqpK4pOKqBZo1d-55" parent="RugDasKqpK4pOKqBZo1d-52" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ SatrLive(Action): void&lt;/div&gt;+ DrawGame(string, int, Player): void&lt;div&gt;+ ShowResult(string): void&lt;br&gt;&lt;div&gt;+ DrawFinalState(Player): void&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="210" y="70" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-56" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SpectreUI" vertex="1">
-          <mxGeometry height="128" width="210" x="370" y="610" as="geometry" />
+          <mxGeometry height="150" width="210" x="370" y="610" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-57" parent="RugDasKqpK4pOKqBZo1d-56" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- board: Board&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; °°°&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="32" width="210" y="26" as="geometry" />
@@ -192,8 +192,8 @@
         <mxCell id="RugDasKqpK4pOKqBZo1d-58" parent="RugDasKqpK4pOKqBZo1d-56" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
           <mxGeometry height="8" width="210" y="58" as="geometry" />
         </mxCell>
-        <mxCell id="RugDasKqpK4pOKqBZo1d-59" parent="RugDasKqpK4pOKqBZo1d-56" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ DrawGame(string, int, Player): void&lt;div&gt;+ DrawFinalState(Player): void&lt;/div&gt;&lt;div&gt;+ DrawFinalState(Player): void&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;°°°&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="62" width="210" y="66" as="geometry" />
+        <mxCell id="RugDasKqpK4pOKqBZo1d-59" parent="RugDasKqpK4pOKqBZo1d-56" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ DrawGame(string, int, Player): void&lt;div&gt;+ DrawFinalState(Player): void&lt;/div&gt;&lt;div&gt;+ ShowResult(string): void&lt;/div&gt;&lt;div&gt;+ DrawFinalState(Player): void&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; &amp;nbsp;°°°&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="84" width="210" y="66" as="geometry" />
         </mxCell>
         <mxCell id="RugDasKqpK4pOKqBZo1d-60" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;{static}&lt;/div&gt;Event" vertex="1">
           <mxGeometry height="184" width="230" x="695" y="608" as="geometry" />
