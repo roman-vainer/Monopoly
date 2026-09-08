@@ -2,5 +2,9 @@
   <Folder Name="/Projektmappenelemente/">
     <File Path="README.md" />
   </Folder>
+  <Folder Name="/Projektmappenelemente/docs/">
+    <File Path="docs/UML_Monopoly.drawio" />
+    <File Path="docs/UML_Monopoly.png" />
+  </Folder>
   <Project Path="Monopoly/Monopoly.csproj" />
 </Solution>
