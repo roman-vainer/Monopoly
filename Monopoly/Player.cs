@@ -56,6 +56,10 @@ public class Player
             IsActive = false;
             Money = 0;
             Token = "";
+            foreach (var estate in Estate)
+            {
+                estate.Owner = null;
+            }
             Estate.Clear();
             Position = 0;
             Lap = 0;

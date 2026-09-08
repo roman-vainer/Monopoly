@@ -37,25 +37,25 @@ public class Event
     }
     private static string ExecuteMoveForward(Player player)
     {
-        string message = $"\n===Vorwärtsbewegung===\n";
-        int steps = new Random().Next(1, 6);
+        string message = $"\n=== VORWÄRTSBEWEGUNG ===\n";
+        int steps = Random.Shared.Next(1, 6);
         for (int i = 0; i < steps; i++)
         {
             player.Move(1);
         }
-        message += $"{player.Name} ist {steps} vorwärts gegangen!";
+        message += $"{player.Name} zieht {steps} Felder vor";
         return message ;
     }
 
     private static string ExecuteMoveBackward(Player player)
     {
-        string message = $"\n===Vorwärtsbewegung===\n";
-        int steps = new Random().Next(1, 6);
+        string message = $"\n=== RÜCKWÄRTSBEWEBUNG ===\n";
+        int steps = Random.Shared.Next(1, 6);
         for (int i = 0; i < steps; i++)
         {
             player.Move(-1);
         }
-        message += $"{player.Name} ist {steps} rückwärts gegangen!";
+        message += $"{player.Name} zieht {steps} Felder zurück";
         return message;
     }
 

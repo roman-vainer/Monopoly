@@ -23,7 +23,7 @@ public class Game
 
     private void Initialization()
     {
-        currentPlayer = players[new Random().Next(players.Count)];
+        currentPlayer = players[Random.Shared.Next(players.Count)];
         for (int i = 0; i < players.Count; i++)
         {
             players[i].PlayerColor = colors[i];
@@ -68,7 +68,7 @@ public class Game
             currentPlayer.Move(1);
             RefreshGame();
             Thread.Sleep(300);
-            if(currentPlayer.Position == 0 && i != steps - 1)
+            if (currentPlayer.Position == 0 && i != steps - 1)
             {
                 Thread.Sleep(2000);
                 resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
@@ -77,7 +77,7 @@ public class Game
         int endPosition = currentPlayer.Position;
         resultMessage = board.Spaces[endPosition].ExecuteAction(currentPlayer);
         RefreshGame();
-        if(endPosition != currentPlayer.Position)
+        if (endPosition != currentPlayer.Position)
         {
             Thread.Sleep(2000);
             resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
@@ -88,20 +88,31 @@ public class Game
     private void ChangePosition()
     {
         int currentIndex = players.IndexOf(currentPlayer);
-        currentPlayer = players[(currentIndex + 1) % players.Count];
-        if (!currentPlayer.IsActive)
-        {
-            currentIndex = players.IndexOf(currentPlayer);
-            currentPlayer = players[(currentIndex + 1) % players.Count];
-        }
 
-        if (currentPlayer.SkipTurn)
+        do
         {
-            currentPlayer.SkipTurn = false;
-            currentIndex = players.IndexOf(currentPlayer);
-            currentPlayer = players[(currentIndex + 1) % players.Count];
-        }
-        resultMessage = $"Current Player is now {currentPlayer.Token} - {currentPlayer.Name}";
+            currentIndex = (currentIndex + 1) % players.Count;
+            currentPlayer = players[currentIndex];
+
+            if (currentPlayer.IsActive && currentPlayer.SkipTurn)
+            {
+                currentPlayer.SkipTurn = false;
+                resultMessage = 
+                    $"\n=== ZUG AUSSETZEN ===\n" +
+                    $"{currentPlayer.Name} muss diesen Zug aussetzen.";
+                RefreshGame();
+                Thread.Sleep(2000);
+                continue;
+            }
+            if (currentPlayer.IsActive)
+            {
+                break;
+            }
+
+
+        } while (true);
+
+        resultMessage = $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.";
     }
 
     private bool IsEnd()

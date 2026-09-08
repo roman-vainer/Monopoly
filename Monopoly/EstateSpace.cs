@@ -9,8 +9,8 @@ public class EstateSpace : Space
 
     public EstateSpace()
     {
-        Name = names[new Random().Next(names.Length)];
-        Price = new Random().Next(1, 6) * 100;
+        Name = names[Random.Shared.Next(names.Length)];
+        Price = Random.Shared.Next(1, 6) * 100;
         RentPrice = Price / 2;
     }
     public override string ExecuteAction(Player player)
@@ -36,7 +36,9 @@ public class EstateSpace : Space
             if (Owner != player)
             {
                 message += $"Der Besitzer ist {Owner.Name}, daher musst du {RentPrice} € Miete zahlen.";
+                decimal payment = Math.Min(RentPrice, player.Money);
                 player.MoneyChanges(-RentPrice);
+                Owner.MoneyChanges(payment);
                 if (!player.IsActive)
                 {
                     message += $"{player.Name}\nist jetzt bankrott und scheidest aus dem Spiel aus";
