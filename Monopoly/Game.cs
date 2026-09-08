@@ -76,12 +76,13 @@ public class Game
         }
         int endPosition = currentPlayer.Position;
         resultMessage = board.Spaces[endPosition].ExecuteAction(currentPlayer);
-        RefreshGame();
+        ui.ShowResult(resultMessage);
+        //RefreshGame();
         if (endPosition != currentPlayer.Position)
         {
             Thread.Sleep(2000);
             resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
-            RefreshGame();
+            ui.ShowResult(resultMessage);
         }
     }
 
