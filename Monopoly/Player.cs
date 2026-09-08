@@ -5,15 +5,15 @@ namespace Monopoly;
 public class Player
 {
     public string Name { get; }
+    public List<EstateSpace> Estate { get; }
     public decimal Money { get; private set; }
-    public bool IsActive { get; set; }
+    public bool IsActive { get; private set; }
     public int Position { get; private set; }
-    public List<EstateSpace> Estate { get;}
+    public int Lap { get; private set; }
     public Color PlayerColor { get; set; }
     public string Token { get; set; }
-    public static int BoardSize { get; set; }
-    public int Lap { get; private set; }
     public bool SkipTurn { get; set; }
+    public static int BoardSize { get; set; }
 
     public Player(string name)
     {
@@ -49,26 +49,29 @@ public class Player
         }
     }
 
-    public decimal MoneyChanges(decimal amount)
+    public void MoneyChanges(decimal amount)
     {
         if (Money + amount <= 0)
         {
-            IsActive = false;
-            Money = 0;
-            Token = "";
-            foreach (var estate in Estate)
-            {
-                estate.Owner = null;
-            }
-            Estate.Clear();
-            Position = 0;
-            Lap = 0;
-            return 0;
+            MakeBankrupt();
         }
         else
         {
             Money += amount;
-            return Money;
         }
+    }
+
+    private void MakeBankrupt()
+    {
+        IsActive = false;
+        Money = 0;
+        Token = "";
+        foreach (var estate in Estate)
+        {
+            estate.Owner = null;
+        }
+        Estate.Clear();
+        Position = 0;
+        Lap = 0;
     }
 }
