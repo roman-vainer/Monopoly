@@ -13,6 +13,7 @@ public class SpectreUI : IUserInterface
     private string message;
     private int diceValue;
     Player currentPlayer;
+    private bool showResult;
 
     public SpectreUI(Board board, List<Player> players)
     {
@@ -244,16 +245,68 @@ public class SpectreUI : IUserInterface
 
     private Panel CreateGameInfo()
     {
-        Markup content = new Markup(
-            $"Curent Player: {currentPlayer.Token} {currentPlayer.Name}" +
-            $"\U0001F3B2 \U0001F3B2 {diceValue}\n\n" +
-            $"[bold]Message:[/]\n{message}"
+        Panel panel;
+        if (showResult)
+        {
+            Markup resultContent = new Markup(
+                $"[bold]Spieler:[/] {currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
+                $"{Markup.Escape(message)}\n\n" +
+                $"[grey]Beliebige Taste drücken...[/]"
             );
-        Panel panel = new Panel(content);
-        panel.Header = new PanelHeader("GAME INFO", Justify.Center);
+
+            panel = new Panel(
+                Align.Center(
+                    resultContent,
+                    VerticalAlignment.Middle
+                )
+            );
+
+            panel.Header = new PanelHeader(" ERGEBNIS ", Justify.Center);
+            panel.Border = BoxBorder.Double;
+
+            panel.Width = (side - 1) * 14 - 4;
+            panel.Height = 11;
+        }
+        else
+        {
+            Markup content = new Markup(
+                $"[bold]Aktueller Spieler:[/] " +
+                $"{currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
+                $"\U0001F3B2 {diceValue}\n\n" +
+                $"[bold]Information:[/]\n" +
+                $"{Markup.Escape(message)}"
+                );
+            panel = new Panel(content);
+            panel.Header = new PanelHeader(" GAME INFO ", Justify.Center);
         panel.Width = (side - 1) * 14 - 4;
         panel.Height = (side - 2) * 5;
+        }
+
         return panel;
+
+        //Markup content = new Markup(
+        //    $"Curent Player: {currentPlayer.Token} {currentPlayer.Name}" +
+        //    $"\U0001F3B2 \U0001F3B2 {diceValue}\n\n" +
+        //    $"[bold]Message:[/]\n{message}"
+        //    );
+        //Panel panel = new Panel(content);
+        //panel.Header = new PanelHeader("GAME INFO", Justify.Center);
+        //panel.Width = (side - 1) * 14 - 4;
+        //panel.Height = (side - 2) * 5;
+        //return panel;
+    }
+
+    public void ShowResult(string message)
+    {
+        this.message = message;
+        showResult = true;
+        if (liveContext != null)
+        {
+            liveContext.UpdateTarget(CreateScreen());
+            liveContext.Refresh();
+        }
+        Console.ReadKey(true);
+        showResult = false;
     }
 
     public void DrawFinalState(Player winner)
