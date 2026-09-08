@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/docs/">
+    <File Path="docs/UML_Monopoly.drawio" />
+    <File Path="docs/UML_Monopoly.png" />
+  </Folder>
   <Folder Name="/Projektmappenelemente/">
     <File Path="README.md" />
   </Folder>

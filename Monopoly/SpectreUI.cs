@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection.Metadata.Ecma335;
+using System.Text;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
@@ -14,6 +15,7 @@ public class SpectreUI : IUserInterface
     private int diceValue;
     Player currentPlayer;
     private bool showResult;
+    private string resultMessage = "";
 
     public SpectreUI(Board board, List<Player> players)
     {
@@ -143,7 +145,20 @@ public class SpectreUI : IUserInterface
         {
             leftGrid.AddRow(CreateSpasePanel(board.Spaces[i], i));
         }
+
         Panel gameInfo = CreateGameInfo();
+        Grid centeredGrid = new Grid();
+        centeredGrid.AddColumn();
+
+        centeredGrid.AddRow(gameInfo);
+
+        if (showResult)
+        {
+            centeredGrid.AddRow(new Text(""));
+            centeredGrid.AddRow(new Text(""));
+            centeredGrid.AddRow(new Text(""));
+            centeredGrid.AddRow(CreateResultPanel());
+        }
 
         Grid middleGrid = new Grid();
         middleGrid.AddColumn();
@@ -151,9 +166,8 @@ public class SpectreUI : IUserInterface
         middleGrid.AddColumn();
         middleGrid.AddRow(
             leftGrid,
-            gameInfo,
-            rightGrid
-            );
+            centeredGrid,
+            rightGrid);
 
         Grid boardGrid = new Grid();
         boardGrid.AddColumn();
@@ -245,61 +259,48 @@ public class SpectreUI : IUserInterface
 
     private Panel CreateGameInfo()
     {
-        Panel panel;
-        if (showResult)
-        {
-            Markup resultContent = new Markup(
-                $"[bold]Spieler:[/] {currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
-                $"{Markup.Escape(message)}\n\n" +
-                $"[grey]Beliebige Taste drücken...[/]"
+        Markup content = new Markup(
+            $"[bold]Aktueller Spieler:[/] {currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
+            $"\U0001F3B2 {diceValue}\n\n" +
+            $"[bold]Information:[/]\n{Markup.Escape(message)}"
             );
 
-            panel = new Panel(
-                Align.Center(
-                    resultContent,
-                    VerticalAlignment.Middle
-                )
-            );
+        Panel panel = new Panel(content);
 
-            panel.Header = new PanelHeader(" ERGEBNIS ", Justify.Center);
-            panel.Border = BoxBorder.Double;
-
-            panel.Width = (side - 1) * 14 - 4;
-            panel.Height = 11;
-        }
-        else
-        {
-            Markup content = new Markup(
-                $"[bold]Aktueller Spieler:[/] " +
-                $"{currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
-                $"\U0001F3B2 {diceValue}\n\n" +
-                $"[bold]Information:[/]\n" +
-                $"{Markup.Escape(message)}"
-                );
-            panel = new Panel(content);
-            panel.Header = new PanelHeader(" GAME INFO ", Justify.Center);
+        panel.Header = new PanelHeader("GAME INFO", Justify.Center);
         panel.Width = (side - 1) * 14 - 4;
-        panel.Height = (side - 2) * 5;
-        }
-
+        panel.Height = 12;
         return panel;
+    }
 
-        //Markup content = new Markup(
-        //    $"Curent Player: {currentPlayer.Token} {currentPlayer.Name}" +
-        //    $"\U0001F3B2 \U0001F3B2 {diceValue}\n\n" +
-        //    $"[bold]Message:[/]\n{message}"
-        //    );
-        //Panel panel = new Panel(content);
-        //panel.Header = new PanelHeader("GAME INFO", Justify.Center);
-        //panel.Width = (side - 1) * 14 - 4;
-        //panel.Height = (side - 2) * 5;
-        //return panel;
+    private Panel CreateResultPanel()
+    {
+        Markup resultContent = new Markup(
+            $"[bold]Spieler:[/] {currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
+            $"{Markup.Escape(resultMessage)}\n\n" +
+            $"[grey]Beliebige Taste drücken...[/]"
+        );
+
+        Panel panel = new Panel(
+            Align.Center(
+                resultContent,
+                VerticalAlignment.Middle
+            )
+        );
+
+        panel.Header = new PanelHeader(" ERGEBNIS ", Justify.Center);
+        panel.Border = BoxBorder.Double;
+
+        panel.Width = (side - 1) * 14 - 4;
+        panel.Height = 11;
+        return panel;
     }
 
     public void ShowResult(string message)
     {
-        this.message = message;
+        resultMessage = message;
         showResult = true;
+
         if (liveContext != null)
         {
             liveContext.UpdateTarget(CreateScreen());
@@ -307,6 +308,12 @@ public class SpectreUI : IUserInterface
         }
         Console.ReadKey(true);
         showResult = false;
+
+        //if (liveContext != null)
+        //{
+        //    liveContext.UpdateTarget(CreateScreen());
+        //    liveContext.Refresh();
+        //}
     }
 
     public void DrawFinalState(Player winner)

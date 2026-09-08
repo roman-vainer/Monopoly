@@ -42,11 +42,17 @@ public class Game
     {
         ui.StartLive(() =>
         {
+            resultMessage =
+                $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.\n" +
+                $"Zum Würfeln beliebige Taste drücken.";
             RefreshGame();
             while (!IsEnd())
             {
                 PlayTurn();
-                ChangePosition();
+                if (!IsEnd())
+                {
+                    ChangePosition();
+                }
             }
         });
 
@@ -58,7 +64,7 @@ public class Game
 
     public void PlayTurn()
     {
-        Console.ReadKey();
+        Console.ReadKey(true);
         int steps = dice.Roll();
         resultMessage = $"{currentPlayer.Name} würfelt {steps}.";
         RefreshGame();
@@ -77,7 +83,6 @@ public class Game
         int endPosition = currentPlayer.Position;
         resultMessage = board.Spaces[endPosition].ExecuteAction(currentPlayer);
         ui.ShowResult(resultMessage);
-        //RefreshGame();
         if (endPosition != currentPlayer.Position)
         {
             Thread.Sleep(2000);
@@ -98,7 +103,7 @@ public class Game
             if (currentPlayer.IsActive && currentPlayer.SkipTurn)
             {
                 currentPlayer.SkipTurn = false;
-                resultMessage = 
+                resultMessage =
                     $"\n=== ZUG AUSSETZEN ===\n" +
                     $"{currentPlayer.Name} muss diesen Zug aussetzen.";
                 RefreshGame();
@@ -113,7 +118,9 @@ public class Game
 
         } while (true);
 
-        resultMessage = $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.";
+        resultMessage = $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.\n" +
+            $"Zum Würfeln beliebige Taste drücken...";
+        RefreshGame();
     }
 
     private bool IsEnd()
