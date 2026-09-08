@@ -62,7 +62,7 @@ public class Game
 
 
 
-    public void PlayTurn()
+    private void PlayTurn()
     {
         Console.ReadKey(true);
         int steps = dice.Roll();
@@ -152,6 +152,7 @@ public class Game
     {
         ui.DrawGame(resultMessage, dice.CurrentValue, currentPlayer);
     }
+
     private void DrawFinalState(Player player)
     {
         ui.DrawFinalState(player);
