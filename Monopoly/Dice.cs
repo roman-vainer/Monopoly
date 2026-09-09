@@ -2,7 +2,7 @@
 
 public class Dice
 {
-    public int CurrentValue { get; private set; }
+    public int CurrentValue { get; set; }
     public int Roll()
     {
         CurrentValue = Random.Shared.Next(1, 7);
