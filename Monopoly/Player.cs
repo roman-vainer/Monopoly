@@ -15,6 +15,7 @@ public class Player
     public bool SkipTurn { get; set; }
     public static int BoardSize { get; set; }
 
+    //Erstellt einen neuen Spieler mit den Startwerten.
     public Player(string name)
     {
         Name = name;
@@ -27,6 +28,7 @@ public class Player
         Token = "";
     }
 
+    //Bewegt den Spieler auf dem Spielfeld.
     public void Move(int direction)
     {
         Position += direction;
@@ -49,6 +51,7 @@ public class Player
         }
     }
 
+    //Ändert das Guthaben des Spielers.
     public void MoneyChanges(decimal amount)
     {
         if (Money + amount <= 0)
@@ -61,6 +64,7 @@ public class Player
         }
     }
 
+    //Entfernt einen bankrotten Spieler aus dem aktiven Spiel.
     private void MakeBankrupt()
     {
         IsActive = false;

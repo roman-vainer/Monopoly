@@ -5,12 +5,14 @@ public class Board
     private readonly int size;
     public List<Space> Spaces { get; }
 
+    //Erstellt das Spielfeld mit der angegebenen Größe.
     public Board(int size)
     {
         this.size = size;
         Spaces = CreateSpaces();
     }
 
+    //Erstellt und mischt die verschiedenen Spielfelder.
     private List<Space> CreateSpaces()
     {
         var spaces = new List<Space>();

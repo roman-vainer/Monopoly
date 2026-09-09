@@ -17,6 +17,7 @@ public class SpectreUI : IUserInterface
     private bool showResult;
     private string resultMessage = "";
 
+    //Erstellt die Benutzeroberfläche für das Spiel.
     public SpectreUI(Board board, List<Player> players)
     {
         this.board = board;
@@ -25,6 +26,7 @@ public class SpectreUI : IUserInterface
         diceValue = 0;
     }
 
+    //Aktualisiert die Daten der Spielanzeige.
     public void DrawGame(string message, int diceValue, Player currentPlayer)
     {
         this.message = message;
@@ -38,6 +40,7 @@ public class SpectreUI : IUserInterface
         }
     }
 
+    //Startet die dynamische Live-Anzeige.
     public void StartLive(Action gameAction)
     {
         Console.OutputEncoding = Encoding.UTF8;
@@ -52,6 +55,7 @@ public class SpectreUI : IUserInterface
             });
     }
 
+    //Erstellt die Tabelle mit den Spielerdaten.
     private Table DrawPlayers()
     {
         Table tabble = new Table();
@@ -77,6 +81,7 @@ public class SpectreUI : IUserInterface
         return tabble;
     }
 
+    //Erstellt die komplette Spielansicht.
     private Grid CreateScreen()
     {
         FigletText title = new FigletText("MONOPOLY")
@@ -99,6 +104,7 @@ public class SpectreUI : IUserInterface
         return screen;
     }
 
+    //Erstellt die grafische Darstellung des Spielfeldes.
     private Grid DrawGameboard()
     {
         side = board.Spaces.Count / 4 + 1;
@@ -111,7 +117,7 @@ public class SpectreUI : IUserInterface
         IRenderable[] topCells = new IRenderable[side];
         for (int i = 0; i < side; i++)
         {
-            topCells[i] = CreateSpasePanel(board.Spaces[i], i);
+            topCells[i] = CreateSpacePanel(board.Spaces[i], i);
         }
         topGrid.AddRow(topCells);
         int index = side;
@@ -121,7 +127,7 @@ public class SpectreUI : IUserInterface
 
         for (int i = 1; i < side - 1; i++)
         {
-            rightGrid.AddRow(CreateSpasePanel(board.Spaces[index], index));
+            rightGrid.AddRow(CreateSpacePanel(board.Spaces[index], index));
             index++;
         }
         Grid bottomGrid = new Grid();
@@ -133,7 +139,7 @@ public class SpectreUI : IUserInterface
 
         for (int i = side - 1; i >= 0; i--)
         {
-            bottomCells[i] = CreateSpasePanel(board.Spaces[index], index);
+            bottomCells[i] = CreateSpacePanel(board.Spaces[index], index);
             index++;
         }
         bottomGrid.AddRow(bottomCells);
@@ -143,7 +149,7 @@ public class SpectreUI : IUserInterface
 
         for (int i = board.Spaces.Count - 1; i >= index; i--)
         {
-            leftGrid.AddRow(CreateSpasePanel(board.Spaces[i], i));
+            leftGrid.AddRow(CreateSpacePanel(board.Spaces[i], i));
         }
 
         Panel gameInfo = CreateGameInfo();
@@ -178,7 +184,8 @@ public class SpectreUI : IUserInterface
         return boardGrid;
     }
 
-    private Panel CreateSpasePanel(Space space, int position)
+    //Erstellt die Anzeige für ein einzelnes Spielfeld.
+    private Panel CreateSpacePanel(Space space, int position)
     {
         string token = CreateTokenPosition(position);
         Panel panel;
@@ -243,6 +250,7 @@ public class SpectreUI : IUserInterface
         return panel;
     }
 
+    //Ermittelt die Spielfiguren auf einer Position.
     private string CreateTokenPosition(int position)
     {
         string token = "";
@@ -257,12 +265,13 @@ public class SpectreUI : IUserInterface
         return token;
     }
 
+    //Erstellt das Informationsfenster des Spiels.
     private Panel CreateGameInfo()
     {
         Markup content = new Markup(
             $"[bold]Aktueller Spieler:[/] {currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
             $"\U0001F3B2 {diceValue}\n\n" +
-            $"[bold]Information:[/]\n{Markup.Escape(message)}"
+            $"[bold]Information:[/]\n\n{Markup.Escape(message)}"
             );
 
         Panel panel = new Panel(content);
@@ -273,6 +282,7 @@ public class SpectreUI : IUserInterface
         return panel;
     }
 
+    //Erstellt das Fenster für das Ergebnis einer Aktion.
     private Panel CreateResultPanel()
     {
         Markup resultContent = new Markup(
@@ -296,6 +306,7 @@ public class SpectreUI : IUserInterface
         return panel;
     }
 
+    //Zeigt das Ergebnis einer Spielaktion an.
     public void ShowResult(string message)
     {
         resultMessage = message;
@@ -316,6 +327,7 @@ public class SpectreUI : IUserInterface
         //}
     }
 
+    //Zeigt den Gewinner und die Endwertung an.
     public void DrawFinalState(Player winner)
     {
         AnsiConsole.Clear();
