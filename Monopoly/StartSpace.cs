@@ -14,6 +14,10 @@ public class StartSpace : Space
     {
         decimal gewinn = player.Money / 3;
         player.MoneyChanges(gewinn);
-        return $"{player.Name} ist die {player.Lap}. Runde durchgelaufen und erhält einen Bonus {gewinn:F2} €";
+        return
+            $"\n=== STARTBONUS ===\n\n" +
+            $"{player.Name} hat die {player.Lap}. Runde abgeschlossen.\n" +
+            $"{player.Name} erhält einen Bonus von {gewinn:F2} €.\n" +
+            $"Restguthaben: {player.Money:F2} €.";
     }
 }

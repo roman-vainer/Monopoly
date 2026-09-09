@@ -23,7 +23,8 @@ public class Event
     {
         decimal money = player.Money / 3;
         player.MoneyChanges(money);
-        return $"\n=== GOLDGEWINN ===\n: {player.Name} gewinnt {money:F2} €!";
+        return $"\n\n=== GOLDGEWINN ===\n\n:" +
+            $"{player.Name} gewinnt {money:F2} €!";
     }
 
     //Zieht dem Spieler einen Teil seines Geldes ab.
@@ -34,37 +35,43 @@ public class Event
         
         if (!player.IsActive)
         {
-            return $"\n=== STEUERZAHLUNG ===\n{player.Name} muss {taxLoss:F2} € zahlen.\nNicht genug Geld! {player.Name} ist Bankrott";
+            return 
+                $"\n\n=== STEUERZAHLUNG ===\n\n" +
+                $"{player.Name} muss {taxLoss:F2} € Steuern zahlen.\n" +
+                $"Das Guthaben reicht nicht aus.\n" +
+                $"{player.Name} ist bankrott und scheidet aus dem Spiel aus.";
         }
         else
         {
-            return $"\n=== STEUERZAHLUNG ===\n{player.Name} zahlt {taxLoss:F2} € Steuern";
+            return 
+                $"\n\n=== STEUERZAHLUNG ===\n" +
+                $"{player.Name} zahlt {taxLoss:F2} € Steuern";
         }
     }
 
     //Bewegt den Spieler zufällig vorwärts.
     private static string ExecuteMoveForward(Player player)
     {
-        string message = $"\n=== VORWÄRTSBEWEGUNG ===\n";
+        string message = $"\n\n=== VORWÄRTSBEWEGUNG ===\n";
         int steps = Random.Shared.Next(1, 6);
         for (int i = 0; i < steps; i++)
         {
             player.Move(1);
         }
-        message += $"{player.Name} zieht {steps} Felder vor";
+        message += $"{player.Name} zieht {steps} Felder vor.";
         return message ;
     }
 
     //Bewegt den Spieler zufällig rückwärts.
     private static string ExecuteMoveBackward(Player player)
     {
-        string message = $"\n=== RÜCKWÄRTSBEWEBUNG ===\n";
+        string message = $"\n\n=== RÜCKWÄRTSBEWEBUNG ===\n\n";
         int steps = Random.Shared.Next(1, 6);
         for (int i = 0; i < steps; i++)
         {
             player.Move(-1);
         }
-        message += $"{player.Name} zieht {steps} Felder zurück";
+        message += $"{player.Name} zieht {steps} Felder zurück.";
         return message;
     }
 
@@ -72,13 +79,17 @@ public class Event
     private static string ExecuteSkipTurn(Player player)
     {
         player.SkipTurn = true;
-        return $"\n=== RUNDE AUSSETZEN ===\n{player.Name} setzt einen Zug aus!";
+        return 
+            $"\n\n=== RUNDE AUSSETZEN ===\n\n" +
+            $"{player.Name} muss den nächsten Zug aussetzen.";
     }
 
     //Schaltet den Spieler aus dem Spiel aus.
     private static string ExecuteDeath(Player player)
     {
         player.MoneyChanges(-player.Money);
-        return $"\n=== GETÖTET ===\n{player.Name} wurde von der Konkurrenz liquidiert!";
+        return 
+            $"\n\n=== GETÖTET ===\n\n" +
+            $"{player.Name} wurde von der Konkurrenz liquidiert.";
     }
 }

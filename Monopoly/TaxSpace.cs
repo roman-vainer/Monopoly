@@ -26,7 +26,7 @@ public class TaxSpace : Space
         player.MoneyChanges(-Amount);
         return
             $"\n=== STEUERZAHLUNG ===\n\n" +
-            $"{player.Name} muss {Amount:F2} € Steuern zahlen.\n" +
+            $"{player.Name} zahlt {Amount:F2} € Steuern zahlen.\n" +
             $" Restguthaben: {player.Money:F2} €";
     }
 }

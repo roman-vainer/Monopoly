@@ -288,7 +288,7 @@ public class SpectreUI : IUserInterface
         Markup resultContent = new Markup(
             $"[bold]Spieler:[/] {currentPlayer.Token} {Markup.Escape(currentPlayer.Name)}\n\n" +
             $"{Markup.Escape(resultMessage)}\n\n" +
-            $"[grey]Beliebige Taste drücken...[/]"
+            $"[grey]Eine beliebige Taste drücken...[/]"
         );
 
         Panel panel = new Panel(
@@ -319,12 +319,6 @@ public class SpectreUI : IUserInterface
         }
         Console.ReadKey(true);
         showResult = false;
-
-        //if (liveContext != null)
-        //{
-        //    liveContext.UpdateTarget(CreateScreen());
-        //    liveContext.Refresh();
-        //}
     }
 
     //Zeigt den Gewinner und die Endwertung an.
