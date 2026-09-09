@@ -7,12 +7,15 @@ public class EstateSpace : Space
     public decimal RentPrice { get; }
     public Player? Owner { get; set; }
 
+    //Erstellt eine Immobilie mit zufälligem Namen und Preis.
     public EstateSpace()
     {
         Name = names[Random.Shared.Next(names.Length)];
         Price = Random.Shared.Next(1, 6) * 100;
         RentPrice = Price / 2;
     }
+
+    //Führt den Kauf oder die Mietzahlung für die Immobilie aus.
     public override string ExecuteAction(Player player)
     {
         string message = $"\nDu bist auf der Immobilie {Name} gelandet.\n";

@@ -4,20 +4,21 @@ public class MoneySpace : Space
 {
     public int Amount { get; }
 
+    //Erstellt ein Geldfeld mit einem zufälligen Betrag.
     public MoneySpace()
     {
         Amount = Random.Shared.Next(1, 4) * 100;
         Name = "Money";
     }
 
+    //Gibt dem Spieler den Geldbonus des Feldes.
     public override string ExecuteAction(Player player)
     {
         player.MoneyChanges(Amount);
-        return $"{player.Name} Der Spieler landet auf einem Money-Feld und erhält {Amount} €";
-
-        //$"\n=== GELDGEWINN ===\n" +
-        //   $"{player.Name} muss {Amount:F2} € Steuern zahlen.\n" +
-        //   $" Restguthaben: {player.Money:F2} €";
+        return
+            $"\n=== GELDGEWINN ===\n\n" +
+            $"{player.Name} erhält {Amount} €" +
+            $"Restguthaben: {player.Money:F2} €";
     }
 }
 

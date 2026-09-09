@@ -11,6 +11,7 @@ public class Game
     private string resultMessage = "";
     private readonly IUserInterface ui;
 
+    //Erstellt und initialisiert ein neues Spiel.
     public Game(List<Player> players, int size)
     {
         this.players = players;
@@ -21,6 +22,7 @@ public class Game
 
     }
 
+    //Initialisiert den Startspieler, die Farben und die Spielfiguren.
     private void Initialization()
     {
         currentPlayer = players[Random.Shared.Next(players.Count)];
@@ -38,20 +40,21 @@ public class Game
         }
     }
 
+    //Startet das Spiel und führt die Spielrunden aus.
     public void Start()
     {
         ui.StartLive(() =>
         {
             resultMessage =
                 $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.\n" +
-                $"Zum Würfeln beliebige Taste drücken.";
+                $"\nZum Würfeln beliebige Taste drücken...";
             RefreshGame();
             while (!IsEnd())
             {
                 PlayTurn();
                 if (!IsEnd())
                 {
-                    ChangePosition();
+                    NextPlayer();
                 }
             }
         });
@@ -60,8 +63,7 @@ public class Game
         DrawFinalState(player);
     }
 
-
-
+    //Führt einen vollständigen Spielzug aus.
     private void PlayTurn()
     {
         Console.ReadKey(true);
@@ -92,7 +94,8 @@ public class Game
         }
     }
 
-    private void ChangePosition()
+    //Wechselt zum nächsten aktiven Spieler.
+    private void NextPlayer()
     {
         int currentIndex = players.IndexOf(currentPlayer);
 
@@ -125,6 +128,7 @@ public class Game
         RefreshGame();
     }
 
+    //Prüft, ob das Spiel beendet ist.
     private bool IsEnd()
     {
         int activePlayers = players.Count(p => p.IsActive);
@@ -136,6 +140,7 @@ public class Game
         return false;
     }
 
+    //Ermittelt den Gewinner des Spiels.
     private Player DetermineWinner()
     {
         Player player = null;
@@ -150,11 +155,14 @@ public class Game
         }
         return player;
     }
+
+    //Aktualisiert die aktuelle Spielanzeige.
     private void RefreshGame()
     {
         ui.DrawGame(resultMessage, dice.CurrentValue, currentPlayer);
     }
 
+    //Zeigt den Endzustand des Spiels an.
     private void DrawFinalState(Player player)
     {
         ui.DrawFinalState(player);
