@@ -25,7 +25,7 @@ public class TaxSpace : Space
         return
             $"\n=== STEUERZAHLUNG ===\n" +
             $"{player.Name} muss {Amount:F2} € Steuern zahlen.\n" +
-            $" Restguthaben: {player.Money} €";
+            $" Restguthaben: {player.Money:F2} €";
     }
 }
 

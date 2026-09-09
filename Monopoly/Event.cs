@@ -4,7 +4,7 @@ public class Event
 {
     public static string TriggerRandomEvent(Player player)
     {
-        return new Random().Next(1, 7) switch
+        return new Random().Next(4, 5) switch
         {
             1 => ExecuteGoldGains(player),
             2 => ExecuteTaxLoss(player),
@@ -29,11 +29,11 @@ public class Event
         
         if (!player.IsActive)
         {
-            return $"\n===Steuerzahlung===\n{player.Name} muss {taxLoss:F2} € zahlen.\nNicht genug Geld! {player.Name} ist Bankrott";
+            return $"\n=== STEUERZAHLUNG ===\n{player.Name} muss {taxLoss:F2} € zahlen.\nNicht genug Geld! {player.Name} ist Bankrott";
         }
         else
         {
-            return $"===Steuerzahlung===\n{player.Name} zahlt {taxLoss:F2} € Steuern";
+            return $"\n=== STEUERZAHLUNG ===\n{player.Name} zahlt {taxLoss:F2} € Steuern";
         }
     }
     private static string ExecuteMoveForward(Player player)

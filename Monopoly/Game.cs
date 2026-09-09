@@ -5,7 +5,7 @@ public class Game
 {
     private List<Player> players;
     private readonly Board board;
-    private readonly Dice dice;
+    private Dice dice;
     private static readonly Color[] colors = [Color.Red, Color.Yellow, Color.Green, Color.Blue];
     private Player currentPlayer;
     private string resultMessage = "";
@@ -76,15 +76,16 @@ public class Game
             Thread.Sleep(300);
             if (currentPlayer.Position == 0 && i != steps - 1)
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
             }
         }
         int endPosition = currentPlayer.Position;
         resultMessage = board.Spaces[endPosition].ExecuteAction(currentPlayer);
         ui.ShowResult(resultMessage);
-        if (endPosition != currentPlayer.Position)
+        while (endPosition != currentPlayer.Position && currentPlayer.Position != 0)
         {
+            endPosition = currentPlayer.Position;
             Thread.Sleep(2000);
             resultMessage = board.Spaces[currentPlayer.Position].ExecuteAction(currentPlayer);
             ui.ShowResult(resultMessage);
@@ -99,6 +100,7 @@ public class Game
         {
             currentIndex = (currentIndex + 1) % players.Count;
             currentPlayer = players[currentIndex];
+            dice.CurrentValue = 0;
 
             if (currentPlayer.IsActive && currentPlayer.SkipTurn)
             {

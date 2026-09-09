@@ -12,7 +12,7 @@ Das Projekt wurde im Rahmen des Moduls **Grundlagen der objektorientierten Progr
 - Immobilien kaufen und Miete bezahlen
 - Geld und Spielstatus der Spieler verwalten
 - zufällige Ereignisse
-- Spieler können aus dem Spiel ausscheiden
+- Spieler können aus dem Spiel ausscheiden 
 - automatische Ermittlung des Gewinners
 
 ## OOP-Konzepte
