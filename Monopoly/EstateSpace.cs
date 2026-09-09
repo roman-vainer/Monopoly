@@ -18,7 +18,9 @@ public class EstateSpace : Space
     //Führt den Kauf oder die Mietzahlung für die Immobilie aus.
     public override string ExecuteAction(Player player)
     {
-        string message = $"\nDu bist auf der Immobilie {Name} gelandet.\n";
+        string message =
+            $"\n=== IMMOBILIE ===\n\n";
+
         if (Owner == null)
         {
             if (player.Money >= Price)
@@ -26,12 +28,15 @@ public class EstateSpace : Space
                 player.MoneyChanges(-Price);
                 Owner = player;
                 player.Estate.Add(this);
-                message += $"Du hast sie für {Price} € gekauft.\n" +
-                    $"Du bist jetzt der Besitzer und erhältst Miete von anderen spielern";
+                message +=
+                    $"{player.Name} hat die Immobilie für {Price:F2} € gekauft.\n" +
+                    $"{player.Name} ist jetzt der Besitzer und erhält Miete von anderen Spielern.";
             }
             else
             {
-                message += $"Kannst du aber sie nicht kaufen, weil du nicht genug Geld hast.";
+                message +=
+                    $"Die Immobilie kostet {Price:F2} €.\n" +
+                    $"Das Guthaben von {player.Name} reicht für den Kauf nicht aus.";
             }
         }
         else
@@ -44,12 +49,15 @@ public class EstateSpace : Space
                 Owner.MoneyChanges(payment);
                 if (!player.IsActive)
                 {
-                    message += $"{player.Name}\nist jetzt bankrott und scheidest aus dem Spiel aus";
+                    message +=
+                        $"\nDas Guthaben von {player.Name} reicht nicht aus.\n" +
+                        $"{player.Name} ist bankrott und scheidet aus dem Spiel aus.";
                 }
             }
             else
             {
-                message += "Du bist bereits der Besitzer";
+                message += $"{player.Name} ist bereits der Besitzer dieser Immobilie.";
+
             }
         }
         return message;

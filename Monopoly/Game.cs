@@ -47,7 +47,7 @@ public class Game
         {
             resultMessage =
                 $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.\n" +
-                $"\nZum Würfeln beliebige Taste drücken...";
+                $"\nZum Würfeln eine beliebige Taste drücken...";
             RefreshGame();
             while (!IsEnd())
             {
@@ -109,7 +109,7 @@ public class Game
             {
                 currentPlayer.SkipTurn = false;
                 resultMessage =
-                    $"\n=== ZUG AUSSETZEN ===\n" +
+                    $"\n=== ZUG AUSSETZEN ===\n\n" +
                     $"{currentPlayer.Name} muss diesen Zug aussetzen.";
                 RefreshGame();
                 Thread.Sleep(2000);
@@ -123,8 +123,8 @@ public class Game
 
         } while (true);
 
-        resultMessage = $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.\n" +
-            $"Zum Würfeln beliebige Taste drücken...";
+        resultMessage = $"Jetzt ist {currentPlayer.Token} {currentPlayer.Name} am Zug.\n\n" +
+            $"Zum Würfeln eine beliebige Taste drücken...";
         RefreshGame();
     }
 

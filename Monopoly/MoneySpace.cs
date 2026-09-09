@@ -17,8 +17,8 @@ public class MoneySpace : Space
         player.MoneyChanges(Amount);
         return
             $"\n=== GELDGEWINN ===\n\n" +
-            $"{player.Name} erhält {Amount} €" +
-            $"Restguthaben: {player.Money:F2} €";
+            $"{player.Name} erhält {Amount:F2} €." +
+            $"Restguthaben: {player.Money:F2} €.";
     }
 }
 

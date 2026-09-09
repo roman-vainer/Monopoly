@@ -19,7 +19,7 @@ internal class Program
         int playerCount;
         do
         {
-            Console.WriteLine("Geben Sie die Anzahl der Spieler ein (2-4): ");
+            Console.WriteLine("Geben Sie die Anzahl der Spieler ein (2–4): ");
         }
         while (!int.TryParse(Console.ReadLine(), out playerCount) || playerCount < 2 || playerCount > 4);
 
@@ -27,7 +27,7 @@ internal class Program
 
         for (int i = 0; i < playerCount; i++)
         {
-            Console.Write($"Geben Sie den Namen der {i + 1}. Spielers ein: ");
+            Console.WriteLine($"Geben Sie den Namen des {i + 1}. Spielers ein:");
             players.Add(new Player(Console.ReadLine()!));
         }
         return players;
